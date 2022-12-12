@@ -1,16 +1,18 @@
-# music_app
+# Music App with architecture studies, unit tests, state management, UI development and others.
 
-A new Flutter project.
+A study project. Shows how to implement a music application in flutter. We will use clean architecture, Bloc, Unit Tests, etc.
 
-## Getting Started
+## Supported State Management Solutions
 
-This project is a starting point for a Flutter application.
+- [Bloc](https://pub.dev/packages/bloc)
+- [Cubit](https://pub.dev/packages/flutter_bloc)
 
-A few resources to get you started if this is your first Flutter project:
+## Packages
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- [dio](https://pub.dev/packages/dio)
+- [flutter_bloc](https://pub.dev/packages/flutter_bloc)
+- [bloc](https://pub.dev/packages/bloc)
+- [dartz](https://pub.dev/packages/dartz)
+- [cupertino_icons](https://pub.dev/packages/cupertino_icons)
+- [http](https://pub.dev/packages/http)
+- [get_it](https://pub.dev/packages/get_it)
