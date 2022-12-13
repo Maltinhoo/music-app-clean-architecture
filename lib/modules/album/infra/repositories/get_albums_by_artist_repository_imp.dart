@@ -5,13 +5,12 @@ import '../../domain/repositories/get_albums_by_artist_repository.dart';
 import '../datasources/get_albums_by_artist_datasource.dart';
 
 class GetAlbumsByArtistRepositoryImp implements GetAlbumsByArtistRepository {
-  final GetAlbumsByArtistDataSource _dataSource;
+  final GetAlbumsByArtistDataSource _getAlbumsByArtistDataSource;
 
-  GetAlbumsByArtistRepositoryImp(this._dataSource);
+  GetAlbumsByArtistRepositoryImp(this._getAlbumsByArtistDataSource);
 
   @override
-  Future<Either<Exception, List<AlbumEntity>>> getAlbumsByArtist(
-      String artistId) async {
-    return _dataSource.getAlbumsByArtist(artistId);
+  Future<Either<Exception, List<AlbumEntity>>> call(String artistId) async {
+    return _getAlbumsByArtistDataSource(artistId);
   }
 }

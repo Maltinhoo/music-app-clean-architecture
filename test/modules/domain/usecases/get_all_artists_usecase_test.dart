@@ -7,7 +7,7 @@ main() {
   Inject.init();
   test('should return a list of artists', () async {
     GetAllArtistsUseCase dataSource = getIt();
-    var result = await dataSource.getAllArtists();
+    var result = await dataSource();
     late List<ArtistEntity> artists;
 
     result.fold(

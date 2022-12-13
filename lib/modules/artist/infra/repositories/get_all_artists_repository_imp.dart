@@ -5,12 +5,12 @@ import '../../domain/repositories/get_all_artists_repository.dart';
 import '../datasources/get_all_artists_datasource.dart';
 
 class GetAllArtistsRepositoryImp implements GetAllArtistsRepository {
-  final GetAllArtistsDataSource _dataSource;
+  final GetAllArtistsDataSource _getAllArtistsDataSource;
 
-  GetAllArtistsRepositoryImp(this._dataSource);
+  GetAllArtistsRepositoryImp(this._getAllArtistsDataSource);
 
   @override
-  Future<Either<Exception, List<ArtistEntity>>> getAllArtists() async {
-    return _dataSource.getAllArtists();
+  Future<Either<Exception, List<ArtistEntity>>> call() async {
+    return _getAllArtistsDataSource();
   }
 }
