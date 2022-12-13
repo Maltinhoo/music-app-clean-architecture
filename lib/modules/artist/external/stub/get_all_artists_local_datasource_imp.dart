@@ -22,7 +22,7 @@ class GetAllArtistsLocalDataSourceImp implements GetAllArtistsDataSource {
   ];
 
   @override
-  Future<Either<Exception, List<ArtistModel>>> getAllArtists() async {
+  Future<Either<Exception, List<ArtistModel>>> call() async {
     try {
       var result = artists.map((e) => ArtistModel.fromJson(e)).toList();
       return Right(result);

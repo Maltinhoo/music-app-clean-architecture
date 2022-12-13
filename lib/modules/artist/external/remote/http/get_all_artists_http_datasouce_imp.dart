@@ -6,7 +6,7 @@ import '../../../infra/models/artist_model.dart';
 
 class GetAllArtistsHttpDataSourceImp implements GetAllArtistsDataSource {
   @override
-  Future<Either<Exception, List<ArtistModel>>> getAllArtists() async {
+  Future<Either<Exception, List<ArtistModel>>> call() async {
     try {
       var link = Uri.parse('http://localhost:3000/artists');
       var response = await http.get(link);

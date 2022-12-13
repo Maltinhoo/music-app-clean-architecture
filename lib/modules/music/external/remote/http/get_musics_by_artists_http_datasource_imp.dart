@@ -7,8 +7,7 @@ import '../../../infra/models/music_model.dart';
 class GetMusicsByArtistHttpDataSourceImp
     implements GetMusicsByArtistDataSource {
   @override
-  Future<Either<Exception, List<MusicModel>>> getMusicsByArtist(
-      String artistId) async {
+  Future<Either<Exception, List<MusicModel>>> call(String artistId) async {
     try {
       var link = Uri.parse('http://localhost:3000/artists/$artistId/musics');
       var response = await http.get(link, headers: {'artistId': artistId});

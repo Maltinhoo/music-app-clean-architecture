@@ -18,8 +18,7 @@ class GetMusicsByArtistLocalDataSourceImp
   ];
 
   @override
-  Future<Either<Exception, List<MusicModel>>> getMusicsByArtist(
-      String artistId) async {
+  Future<Either<Exception, List<MusicModel>>> call(String artistId) async {
     try {
       var musicsList = musics.map((e) => MusicModel.fromJson(e)).toList();
       return Right(musicsList);

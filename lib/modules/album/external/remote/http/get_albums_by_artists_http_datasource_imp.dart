@@ -7,8 +7,7 @@ import '../../../infra/models/album_model.dart';
 class GetAlbumsByArtistHttpDataSourceImp
     implements GetAlbumsByArtistDataSource {
   @override
-  Future<Either<Exception, List<AlbumModel>>> getAlbumsByArtist(
-      String artistId) async {
+  Future<Either<Exception, List<AlbumModel>>> call(String artistId) async {
     try {
       var link = Uri.parse('http://localhost:3000/artists/$artistId/albums');
       var response = await http.get(link, headers: {'artistId': artistId});

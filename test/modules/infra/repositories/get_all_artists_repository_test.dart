@@ -8,7 +8,7 @@ void main() {
   GetAllArtistsDataSource dataSource = getIt();
 
   test('should return a list of artists', () async {
-    var result = await dataSource.getAllArtists();
+    var result = await dataSource();
     late List<ArtistEntity> artists;
 
     result.fold(
