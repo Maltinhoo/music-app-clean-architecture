@@ -2,6 +2,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 
 import '../enums/convertion_type_enum.dart';
+import '../utils/custom_colors.dart';
 
 class MyText extends StatelessWidget {
   // static TanslationCubit translationCubit = GetIt.I.get<TanslationCubit>();
@@ -48,7 +49,7 @@ class MyText extends StatelessWidget {
     this.overflow,
     this.maxLines,
     this.size,
-    this.color,
+    this.color = CustomColors.white,
     this.shadows,
     this.gradient,
     this.autosize = true,
