@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:music_app/modules/artist/domain/entities/artist_entity.dart';
 
 import 'custom_text.dart';
 
 class MusicCard extends StatelessWidget {
-  final int index;
+  final ArtistEntity artist;
   const MusicCard({
     Key? key,
-    required this.index,
+    required this.artist,
   }) : super(key: key);
 
   @override
@@ -21,7 +22,7 @@ class MusicCard extends StatelessWidget {
             const Placeholder(fallbackHeight: 120),
             const SizedBox(height: 10),
             MyText(
-              'Title $index',
+              artist.name,
               fontWeight: FontWeight.w600,
               size: 18,
             ),

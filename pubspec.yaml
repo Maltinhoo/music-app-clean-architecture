@@ -33,6 +33,8 @@ dependencies:
   flutter_bloc: ^8.1.1
   auto_size_text: ^3.0.0
   flutter_svg: ^1.1.6
+  firebase_core: ^2.4.0
+  cloud_firestore: ^4.2.0
 
 dev_dependencies:
   flutter_test:

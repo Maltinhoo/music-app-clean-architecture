@@ -9,9 +9,10 @@ import '../../modules/album/infra/repositories/get_albums_by_artist_repository_i
 import '../../modules/artist/domain/repositories/get_all_artists_repository.dart';
 import '../../modules/artist/domain/usecases/get_all_artists_usecase.dart';
 import '../../modules/artist/domain/usecases/get_all_artists_usecase_imp.dart';
-import '../../modules/artist/external/stub/get_all_artists_local_datasource_imp.dart';
+import '../../modules/artist/external/remote/firebase/get_all_artists_firebase_datasource_imp.dart';
 import '../../modules/artist/infra/datasources/get_all_artists_datasource.dart';
 import '../../modules/artist/infra/repositories/get_all_artists_repository_imp.dart';
+import '../../modules/home/cubit/home_cubit.dart';
 import '../../modules/music/domain/repositories/get_musics_by_artist_repository.dart';
 import '../../modules/music/domain/usecases/get_musics_by_artist_usecase.dart';
 import '../../modules/music/domain/usecases/get_musics_by_artist_usecase_imp.dart';
@@ -28,7 +29,7 @@ class Inject {
 
     // init all datasources
     getIt.registerLazySingleton<GetAllArtistsDataSource>(
-        () => GetAllArtistsLocalDataSourceImp());
+        () => GetAllArtistsFirebaseDataSourceImp());
     getIt.registerLazySingleton<GetAlbumsByArtistDataSource>(
         () => GetAlbumsByArtistLocalDataSourceImp());
     getIt.registerLazySingleton<GetMusicsByArtistDataSource>(
@@ -51,5 +52,7 @@ class Inject {
         () => GetMusicsByArtistUseCaseImp(getIt()));
 
     // init all blocs
+    GetIt.I.registerFactory<HomeCubit>(
+        () => HomeCubit(GetIt.I.get<GetAllArtistsUseCase>()));
   }
 }

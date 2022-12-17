@@ -29,7 +29,6 @@ class MainPage extends StatelessWidget {
                 TabBar(
                   indicatorWeight: 1,
                   indicatorColor: Colors.transparent,
-                  unselectedLabelColor: Colors.red,
                   labelStyle:
                       TextStyle(fontWeight: FontWeight.w400, fontSize: 15),
                   tabs: [

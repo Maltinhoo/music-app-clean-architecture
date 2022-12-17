@@ -1,3 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:music_app/modules/album/infra/models/album_model.dart';
+import 'package:music_app/modules/music/infra/models/music_model.dart';
+
 import '../../domain/entities/artist_entity.dart';
 
 class ArtistModel extends ArtistEntity {
@@ -26,6 +30,25 @@ class ArtistModel extends ArtistEntity {
       tags: json['tags'],
       songs: json['songs'],
       albums: json['albums'],
+    );
+  }
+
+  static ArtistModel fromDocument(DocumentSnapshot doc) {
+    return ArtistModel(
+      id: doc.id,
+      name: doc['name'],
+      imageUrl: doc['imageUrl'],
+      backgroundImageUrl: doc['backgroundImageUrl'],
+      monthlyListeners: doc['monthlyListeners'],
+      followers: doc['followers'],
+      bio: doc['bio'],
+      tags: doc['tags'],
+      songs: (doc['songs'] as List<dynamic>)
+          .map((song) => MusicModel.fromJson(song))
+          .toList(),
+      albums: (doc['albums'] as List<dynamic>)
+          .map((album) => AlbumModel.fromJson(album))
+          .toList(),
     );
   }
 
