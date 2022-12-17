@@ -3,6 +3,7 @@ import 'package:music_app/modules/home/home_page.dart';
 import 'package:music_app/shared/widgets/vectors.dart';
 
 import '../../shared/widgets/custom_text.dart';
+import '../search/search_page.dart';
 
 class MainPage extends StatelessWidget {
   const MainPage({super.key});
@@ -17,9 +18,10 @@ class MainPage extends StatelessWidget {
               children: const [
                 Expanded(
                   child: TabBarView(
+                    physics: NeverScrollableScrollPhysics(),
                     children: [
                       HomePage(),
-                      Center(child: MyText('Search')),
+                      SearchPage(),
                       Center(child: MyText('Library')),
                     ],
                   ),
@@ -27,6 +29,7 @@ class MainPage extends StatelessWidget {
                 TabBar(
                   indicatorWeight: 1,
                   indicatorColor: Colors.transparent,
+                  unselectedLabelColor: Colors.red,
                   labelStyle:
                       TextStyle(fontWeight: FontWeight.w400, fontSize: 15),
                   tabs: [

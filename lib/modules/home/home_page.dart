@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:music_app/shared/utils/custom_colors.dart';
 
+import '../../shared/widgets/album_card.dart';
 import '../../shared/widgets/custom_text.dart';
+import '../../shared/widgets/music_card.dart';
+import '../../shared/widgets/playlist_card.dart';
 import '../../shared/widgets/vectors.dart';
 
 class HomePage extends StatelessWidget {
@@ -12,85 +14,19 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
-        padding: const EdgeInsets.only(top: kToolbarHeight - 15),
+        padding: const EdgeInsets.only(top: kToolbarHeight - 30),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Padding(
-              padding: const EdgeInsets.only(left: 15, right: 15, bottom: 15),
-              child: Row(
-                children: const [
-                  Expanded(
-                    child: MyText(
-                      'Recently played',
-                      fontWeight: FontWeight.w700,
-                      size: 25,
-                    ),
-                  ),
-                  Vector(Vectors.notification),
-                  SizedBox(width: 15),
-                  Vector(Vectors.recently_played),
-                  SizedBox(width: 15),
-                  Vector(Vectors.settings),
-                ],
-              ),
-            ),
+            _buildTitlePage(),
             SingleChildScrollView(
               padding: const EdgeInsets.symmetric(horizontal: 5),
               scrollDirection: Axis.horizontal,
               child: Row(
-                children: [
-                  ...List.generate(
-                      10,
-                      (index) => Padding(
-                            padding: const EdgeInsets.only(right: 10, left: 10),
-                            child: SizedBox(
-                              width: 120,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  const Placeholder(fallbackHeight: 120),
-                                  const SizedBox(height: 10),
-                                  MyText(
-                                    'Title $index',
-                                    fontWeight: FontWeight.w600,
-                                    size: 18,
-                                  ),
-                                ],
-                              ),
-                            ),
-                          )),
-                ],
+                children: List.generate(10, (index) => MusicCard(index: index)),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.all(15),
-              child: Row(
-                children: [
-                  const Placeholder(
-                    fallbackHeight: 70,
-                    fallbackWidth: 70,
-                  ),
-                  const SizedBox(width: 15),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: const [
-                      MyText(
-                        '#SPOTIFYWRAPPED',
-                        fontWeight: FontWeight.w400,
-                        size: 15,
-                        color: CustomColors.grey2,
-                      ),
-                      MyText(
-                        'Your 2021 in review',
-                        fontWeight: FontWeight.w600,
-                        size: 25,
-                      ),
-                    ],
-                  )
-                ],
-              ),
-            ),
+            const AlbumCard(),
             const MyText(
               'Editor\'s picks',
               fontWeight: FontWeight.w600,
@@ -101,34 +37,33 @@ class HomePage extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 5),
               scrollDirection: Axis.horizontal,
               child: Row(
-                children: [
-                  ...List.generate(
-                      10,
-                      (index) => Padding(
-                            padding: const EdgeInsets.only(right: 10, left: 10),
-                            child: SizedBox(
-                              width: 160,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: const [
-                                  Placeholder(fallbackHeight: 160),
-                                  SizedBox(height: 10),
-                                  MyText(
-                                    'Ed Sheeran, Big Sean, Juice WRLD, Post Malone',
-                                    fontWeight: FontWeight.w500,
-                                    size: 18,
-                                    maxLines: 2,
-                                    color: CustomColors.grey3,
-                                  ),
-                                ],
-                              ),
-                            ),
-                          )),
-                ],
+                children: List.generate(10, (index) => const PlaylistCard()),
               ),
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _buildTitlePage() {
+    return Padding(
+      padding: const EdgeInsets.only(left: 15, right: 15, bottom: 15),
+      child: Row(
+        children: const [
+          Expanded(
+            child: MyText(
+              'Recently played',
+              fontWeight: FontWeight.w700,
+              size: 28,
+            ),
+          ),
+          Vector(Vectors.notification),
+          SizedBox(width: 15),
+          Vector(Vectors.recently_played),
+          SizedBox(width: 15),
+          Vector(Vectors.settings),
+        ],
       ),
     );
   }
