@@ -35,6 +35,7 @@ dependencies:
   flutter_svg: ^1.1.6
   firebase_core: ^2.4.0
   cloud_firestore: ^4.2.0
+  cached_network_image: ^3.2.3
 
 dev_dependencies:
   flutter_test:

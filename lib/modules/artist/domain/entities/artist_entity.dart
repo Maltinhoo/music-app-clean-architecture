@@ -9,7 +9,7 @@ class ArtistEntity {
   int monthlyListeners;
   int followers;
   String bio;
-  String tags;
+  List<String> tags;
   List<MusicEntity> songs;
   List<AlbumEntity> albums;
 

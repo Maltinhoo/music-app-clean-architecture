@@ -3,8 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:music_app/core/inject/intect.dart';
 
 import '../../shared/widgets/album_card.dart';
+import '../../shared/widgets/artist_circular.dart';
 import '../../shared/widgets/custom_text.dart';
-import '../../shared/widgets/music_card.dart';
 import '../../shared/widgets/playlist_card.dart';
 import '../../shared/widgets/vectors.dart';
 import 'cubit/home_cubit.dart';
@@ -17,10 +17,10 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: BlocProvider(
-        create: (context) => getIt<HomeCubit>()..getAllArtists(),
+        create: (context) => getIt<HomeCubit>()..loadAllData(),
         child: BlocBuilder<HomeCubit, HomeState>(
           builder: (context, state) {
-            if (state is LoadingArtistsState) {
+            if (state is HomeLoadingState) {
               return const Center(child: CircularProgressIndicator());
             }
             return Padding(
@@ -29,18 +29,19 @@ class HomePage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   _buildTitlePage(),
-                  SingleChildScrollView(
-                    padding: const EdgeInsets.symmetric(horizontal: 5),
-                    scrollDirection: Axis.horizontal,
-                    child: Row(
-                      children: [
-                        ...(state as SuccessArtistsState)
-                            .allArtists
-                            .map((artist) => MusicCard(artist: artist))
-                      ],
-                    ),
-                  ),
+                  // SingleChildScrollView(
+                  //   padding: const EdgeInsets.symmetric(horizontal: 5),
+                  //   scrollDirection: Axis.horizontal,
+                  //   child: Row(
+                  //     children: [
+                  //       ...(state as HomeLoadedState)
+                  //           .artists
+                  //           .map((artist) => MusicCard(artist: artist))
+                  //     ],
+                  //   ),
+                  // ),
                   const AlbumCard(),
+
                   const MyText(
                     'Editor\'s picks',
                     fontWeight: FontWeight.w600,
@@ -50,9 +51,22 @@ class HomePage extends StatelessWidget {
                   SingleChildScrollView(
                     padding: const EdgeInsets.symmetric(horizontal: 5),
                     scrollDirection: Axis.horizontal,
+                    child: Row(children: [
+                      ...(state as HomeLoadedState)
+                          .albums
+                          .map((album) => PlaylistCard(album: album))
+                    ]),
+                  ),
+                  const SizedBox(height: 15),
+                  SingleChildScrollView(
+                    padding: const EdgeInsets.symmetric(horizontal: 5),
+                    scrollDirection: Axis.horizontal,
                     child: Row(
-                      children:
-                          List.generate(10, (index) => const PlaylistCard()),
+                      children: [
+                        ...(state)
+                            .artists
+                            .map((artist) => ArtistCircular(artist: artist))
+                      ],
                     ),
                   ),
                 ],
