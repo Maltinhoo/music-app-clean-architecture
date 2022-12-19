@@ -1,11 +1,8 @@
-import '../../../album/domain/entities/album_entity.dart';
-import '../../../artist/domain/entities/artist_entity.dart';
-
 class MusicEntity {
   String id;
   String title;
-  ArtistEntity artist;
-  AlbumEntity album;
+  List<String> artists;
+  String albumId;
   String duration;
   int reproductionCount;
   bool isExplicit;
@@ -13,8 +10,8 @@ class MusicEntity {
   MusicEntity({
     required this.id,
     required this.title,
-    required this.artist,
-    required this.album,
+    required this.artists,
+    required this.albumId,
     required this.duration,
     required this.reproductionCount,
     required this.isExplicit,

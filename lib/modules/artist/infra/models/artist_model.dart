@@ -42,7 +42,8 @@ class ArtistModel extends ArtistEntity {
       monthlyListeners: doc['monthlyListeners'],
       followers: doc['followers'],
       bio: doc['bio'],
-      tags: doc['tags'],
+      tags:
+          (doc['tags'] as List<dynamic>).map((tag) => tag.toString()).toList(),
       songs: (doc['songs'] as List<dynamic>)
           .map((song) => MusicModel.fromJson(song))
           .toList(),

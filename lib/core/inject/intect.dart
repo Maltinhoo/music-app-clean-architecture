@@ -1,11 +1,17 @@
 import 'package:get_it/get_it.dart';
+import 'package:music_app/modules/album/domain/repositories/get_all_albums_repository.dart';
+import 'package:music_app/modules/album/domain/usecases/get_all_albums/get_all_albums_usecase.dart';
+import 'package:music_app/modules/album/external/remote/firebase/get_all_albums_firebase_datasource_imp.dart';
+import 'package:music_app/modules/album/infra/datasources/get_all_albums_datasource.dart';
 
 import '../../modules/album/domain/repositories/get_albums_by_artist_repository.dart';
-import '../../modules/album/domain/usecases/get_albums_by_artist_usecase.dart';
-import '../../modules/album/domain/usecases/get_albums_by_artist_usecase_imp.dart';
+import '../../modules/album/domain/usecases/get_albums_by_artist/get_albums_by_artist_usecase.dart';
+import '../../modules/album/domain/usecases/get_albums_by_artist/get_albums_by_artist_usecase_imp.dart';
+import '../../modules/album/domain/usecases/get_all_albums/get_all_albums_usecase_imp.dart';
 import '../../modules/album/external/stub/get_albums_by_artist_local_datasource_imp.dart';
 import '../../modules/album/infra/datasources/get_albums_by_artist_datasource.dart';
 import '../../modules/album/infra/repositories/get_albums_by_artist_repository_imp.dart';
+import '../../modules/album/infra/repositories/get_all_albums_repository_imp.dart';
 import '../../modules/artist/domain/repositories/get_all_artists_repository.dart';
 import '../../modules/artist/domain/usecases/get_all_artists_usecase.dart';
 import '../../modules/artist/domain/usecases/get_all_artists_usecase_imp.dart';
@@ -34,6 +40,8 @@ class Inject {
         () => GetAlbumsByArtistLocalDataSourceImp());
     getIt.registerLazySingleton<GetMusicsByArtistDataSource>(
         () => GetMusicsByArtistLocalDataSourceImp());
+    getIt.registerLazySingleton<GetAllAlbumsDataSource>(
+        () => GetAllAlbumsFirebaseDataSourceImp());
 
     // init all repositories
     getIt.registerLazySingleton<GetAllArtistsRepository>(
@@ -42,6 +50,8 @@ class Inject {
         () => GetAlbumsByArtistRepositoryImp(getIt()));
     getIt.registerLazySingleton<GetMusicsByArtistRepository>(
         () => GetMusicsByArtistRepositoryImp(getIt()));
+    getIt.registerLazySingleton<GetAllAlbumsRepository>(
+        () => GetAllAlbumsRepositoryImp(getIt()));
 
     // init all usecases
     getIt.registerLazySingleton<GetAllArtistsUseCase>(
@@ -50,9 +60,10 @@ class Inject {
         () => GetAlbumsByArtistUseCaseImp(getIt()));
     getIt.registerLazySingleton<GetMusicsByArtistUseCase>(
         () => GetMusicsByArtistUseCaseImp(getIt()));
+    getIt.registerLazySingleton<GetAllAlbumsUseCase>(
+        () => GetAllAlbumsUseCaseImp(getIt()));
 
     // init all blocs
-    GetIt.I.registerFactory<HomeCubit>(
-        () => HomeCubit(GetIt.I.get<GetAllArtistsUseCase>()));
+    GetIt.I.registerFactory<HomeCubit>(() => HomeCubit(getIt(), getIt()));
   }
 }

@@ -1,12 +1,13 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 import '../../domain/entities/album_entity.dart';
 
 class AlbumModel extends AlbumEntity {
   AlbumModel({
     required super.id,
     required super.title,
-    required super.artist,
+    required super.artists,
     required super.albumArtUrl,
-    required super.songCount,
     required super.duration,
     required super.releaseDate,
     required super.songs,
@@ -16,12 +17,27 @@ class AlbumModel extends AlbumEntity {
     return AlbumModel(
       id: json['id'],
       title: json['title'],
-      artist: json['artist'],
-      albumArtUrl: json['album_art_url'],
-      songCount: json['song_count'],
+      artists: json['artists'],
+      albumArtUrl: json['albumArtUrl'],
       duration: json['duration'],
-      releaseDate: json['release_date'],
+      releaseDate: json['releaseDate'],
       songs: json['songs'],
+    );
+  }
+
+  static AlbumModel fromDocument(DocumentSnapshot doc) {
+    return AlbumModel(
+      id: doc.id,
+      title: doc['title'],
+      artists: (doc['artists'] as List<dynamic>)
+          .map((artist) => artist.toString())
+          .toList(),
+      albumArtUrl: doc['albumArtUrl'],
+      duration: doc['duration'],
+      releaseDate: (doc['releaseDate'] as Timestamp).toDate(),
+      songs: (doc['songs'] as List<dynamic>)
+          .map((song) => song.toString())
+          .toList(),
     );
   }
 
@@ -29,11 +45,10 @@ class AlbumModel extends AlbumEntity {
     return {
       'id': id,
       'title': title,
-      'artist': artist,
-      'album_art_url': albumArtUrl,
-      'song_count': songCount,
+      'artists': artists,
+      'albumArtUrl': albumArtUrl,
       'duration': duration,
-      'release_date': releaseDate,
+      'releaseDate': releaseDate,
       'songs': songs,
     };
   }

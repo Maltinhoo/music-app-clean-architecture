@@ -4,8 +4,8 @@ class MusicModel extends MusicEntity {
   MusicModel({
     required super.id,
     required super.title,
-    required super.artist,
-    required super.album,
+    required super.artists,
+    required super.albumId,
     required super.duration,
     required super.reproductionCount,
     required super.isExplicit,
@@ -15,8 +15,8 @@ class MusicModel extends MusicEntity {
     return MusicModel(
       id: json['id'],
       title: json['title'],
-      artist: json['artist'],
-      album: json['album'],
+      artists: json['artists'],
+      albumId: json['albumId'],
       duration: json['duration'],
       reproductionCount: json['reproduction_count'],
       isExplicit: json['is_explicit'],
@@ -27,8 +27,8 @@ class MusicModel extends MusicEntity {
     return {
       'id': id,
       'title': title,
-      'artist': artist,
-      'album': album,
+      'artists': artists,
+      'albumId': albumId,
       'duration': duration,
       'reproduction_count': reproductionCount,
       'is_explicit': isExplicit,
