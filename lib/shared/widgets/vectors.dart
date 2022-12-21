@@ -10,6 +10,7 @@ enum Vectors {
   home,
   search,
   library,
+  download_icon,
 }
 
 class Vector extends StatelessWidget {

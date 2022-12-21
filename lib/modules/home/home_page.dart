@@ -7,6 +7,7 @@ import '../../shared/widgets/artist_circular.dart';
 import '../../shared/widgets/custom_text.dart';
 import '../../shared/widgets/playlist_card.dart';
 import '../../shared/widgets/vectors.dart';
+import '../album/presenter/album_page.dart';
 import 'cubit/home_cubit.dart';
 
 class HomePage extends StatelessWidget {
@@ -54,7 +55,14 @@ class HomePage extends StatelessWidget {
                     child: Row(children: [
                       ...(state as HomeLoadedState)
                           .albums
-                          .map((album) => PlaylistCard(album: album))
+                          .map((album) => PlaylistCard(
+                                album: album,
+                                onTap: () {
+                                  Navigator.pushNamed(
+                                      context, AlbumPage.routeName,
+                                      arguments: {'album': album});
+                                },
+                              ))
                     ]),
                   ),
                   const SizedBox(height: 15),
@@ -63,9 +71,10 @@ class HomePage extends StatelessWidget {
                     scrollDirection: Axis.horizontal,
                     child: Row(
                       children: [
-                        ...(state)
-                            .artists
-                            .map((artist) => ArtistCircular(artist: artist))
+                        ...(state).artists.map((artist) => ArtistCircular(
+                              artist: artist,
+                              onTap: () {},
+                            ))
                       ],
                     ),
                   ),

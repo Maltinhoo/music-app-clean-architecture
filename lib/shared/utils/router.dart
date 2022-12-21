@@ -2,12 +2,15 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 
+import '../../modules/album/presenter/album_page.dart';
 import '../../modules/home/home_page.dart';
 import '../../modules/main/main_page.dart';
 import '../widgets/custom_text.dart';
 
 class AppRouter {
   static MaterialPageRoute<dynamic> generateRoute(RouteSettings settings) {
+    final args = settings.arguments as Map<String, dynamic>?;
+
     try {
       late final Widget page;
       log("AppRouter.generateRoute: ${settings.name}");
@@ -17,6 +20,9 @@ class AppRouter {
           break;
         case HomePage.routeName:
           page = const HomePage();
+          break;
+        case AlbumPage.routeName:
+          page = AlbumPage(album: args!['album']);
           break;
 
         default:

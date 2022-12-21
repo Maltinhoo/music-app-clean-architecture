@@ -69,7 +69,10 @@ class _BouncingState extends State<Bouncing>
       onTap: () async {
         _controller.forward();
         await Future.delayed(const Duration(milliseconds: 100));
-        widget.onTap!();
+
+        if (widget.onTap != null) {
+          widget.onTap!();
+        }
         _controller.reverse();
       },
 
