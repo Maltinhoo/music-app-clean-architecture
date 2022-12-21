@@ -24,9 +24,16 @@ class HomeCubit extends Cubit<HomeState> {
   }
 
   Future<void> loadAllData() async {
+    if (isClosed) {
+      return;
+    }
     emit(HomeLoadingState());
-    final artists = await getAllArtists();
-    final albums = await getAllAlbums();
-    emit(HomeLoadedState(artists, albums));
+    try {
+      final artists = await getAllArtists();
+      final albums = await getAllAlbums();
+      emit(HomeLoadedState(artists, albums));
+    } catch (e) {
+      HomeErrorState(e.toString());
+    }
   }
 }

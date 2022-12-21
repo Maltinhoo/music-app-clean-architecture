@@ -64,6 +64,6 @@ class Inject {
         () => GetAllAlbumsUseCaseImp(getIt()));
 
     // init all blocs
-    GetIt.I.registerFactory<HomeCubit>(() => HomeCubit(getIt(), getIt()));
+    getIt.registerLazySingleton<HomeCubit>(() => HomeCubit(getIt(), getIt()));
   }
 }

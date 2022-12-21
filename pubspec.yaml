@@ -36,6 +36,7 @@ dependencies:
   firebase_core: ^2.4.0
   cloud_firestore: ^4.2.0
   cached_network_image: ^3.2.3
+  palette_generator: ^0.3.3+2
 
 dev_dependencies:
   flutter_test:

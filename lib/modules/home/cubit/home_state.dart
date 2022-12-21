@@ -19,10 +19,10 @@ class HomeLoadingState extends HomeState {
   List<Object?> get props => [];
 }
 
-class ErrorState extends HomeState {
+class HomeErrorState extends HomeState {
   final String message;
 
-  ErrorState(this.message);
+  HomeErrorState(this.message);
 
   @override
   List<Object?> get props => [message];
