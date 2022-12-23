@@ -20,6 +20,7 @@ class Bouncing extends StatefulWidget {
   }) : super(key: key);
 
   @override
+  // ignore: library_private_types_in_public_api
   _BouncingState createState() => _BouncingState();
 }
 
@@ -54,7 +55,6 @@ class _BouncingState extends State<Bouncing>
         ? _scale = widget.bounce! ? 1 - _controller.value : 1
         : _scale = 1 - _controller.value;
 
-    double opacity = _controller.value;
     return GestureDetector(
       behavior: widget.behavior,
       onLongPress: widget.onLongPress,

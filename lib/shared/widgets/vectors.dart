@@ -1,10 +1,11 @@
+// ignore_for_file: constant_identifier_names, duplicate_ignore
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 enum Vectors {
   notification,
-  // ignore: constant_identifier_names
   recently_played,
   settings,
   home,

@@ -15,7 +15,7 @@ main() {
         imageUrl: '',
         monthlyListeners: 0,
         songs: [],
-        tags: '',
+        tags: [],
       );
       expect(entity.albums, isEmpty);
     },

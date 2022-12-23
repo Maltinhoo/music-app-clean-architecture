@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:music_app/modules/home/home_page.dart';
+import 'package:music_app/modules/main/widgets/music_snack_bar.dart';
 import 'package:music_app/shared/widgets/vectors.dart';
 
 import '../../shared/widgets/custom_text.dart';
@@ -15,18 +16,28 @@ class MainPage extends StatelessWidget {
         body: DefaultTabController(
             length: 3,
             child: Column(
-              children: const [
+              children: [
                 Expanded(
-                  child: TabBarView(
-                    physics: NeverScrollableScrollPhysics(),
-                    children: [
-                      HomePage(),
-                      SearchPage(),
-                      Center(child: MyText('Library')),
+                  child: Stack(
+                    alignment: Alignment.center,
+                    children: const [
+                      TabBarView(
+                        physics: NeverScrollableScrollPhysics(),
+                        children: [
+                          HomePage(),
+                          SearchPage(),
+                          Center(child: MyText('Library')),
+                        ],
+                      ),
+                      AnimatedPositioned(
+                        bottom: 0,
+                        duration: Duration(milliseconds: 300),
+                        child: MusicSnackBar(),
+                      )
                     ],
                   ),
                 ),
-                TabBar(
+                const TabBar(
                   indicatorWeight: 1,
                   indicatorColor: Colors.transparent,
                   labelStyle:

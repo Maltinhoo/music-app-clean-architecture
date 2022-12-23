@@ -26,59 +26,62 @@ class HomePage extends StatelessWidget {
             }
             return Padding(
               padding: const EdgeInsets.only(top: kToolbarHeight - 30),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  _buildTitlePage(),
-                  // SingleChildScrollView(
-                  //   padding: const EdgeInsets.symmetric(horizontal: 5),
-                  //   scrollDirection: Axis.horizontal,
-                  //   child: Row(
-                  //     children: [
-                  //       ...(state as HomeLoadedState)
-                  //           .artists
-                  //           .map((artist) => MusicCard(artist: artist))
-                  //     ],
-                  //   ),
-                  // ),
-                  const AlbumCard(),
+              child: SingleChildScrollView(
+                physics: const BouncingScrollPhysics(),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    _buildTitlePage(),
+                    // SingleChildScrollView(
+                    //   padding: const EdgeInsets.symmetric(horizontal: 5),
+                    //   scrollDirection: Axis.horizontal,
+                    //   child: Row(
+                    //     children: [
+                    //       ...(state as HomeLoadedState)
+                    //           .artists
+                    //           .map((artist) => MusicCard(artist: artist))
+                    //     ],
+                    //   ),
+                    // ),
+                    const AlbumCard(),
 
-                  const MyText(
-                    'Editor\'s picks',
-                    fontWeight: FontWeight.w600,
-                    size: 30,
-                    margin: EdgeInsets.all(15),
-                  ),
-                  SingleChildScrollView(
-                    padding: const EdgeInsets.symmetric(horizontal: 5),
-                    scrollDirection: Axis.horizontal,
-                    child: Row(children: [
-                      ...(state as HomeLoadedState)
-                          .albums
-                          .map((album) => PlaylistCard(
-                                album: album,
-                                onTap: () {
-                                  Navigator.pushNamed(
-                                      context, AlbumPage.routeName,
-                                      arguments: {'album': album});
-                                },
-                              ))
-                    ]),
-                  ),
-                  const SizedBox(height: 15),
-                  SingleChildScrollView(
-                    padding: const EdgeInsets.symmetric(horizontal: 5),
-                    scrollDirection: Axis.horizontal,
-                    child: Row(
-                      children: [
-                        ...(state).artists.map((artist) => ArtistCircular(
-                              artist: artist,
-                              onTap: () {},
-                            ))
-                      ],
+                    const MyText(
+                      'Editor\'s picks',
+                      fontWeight: FontWeight.w600,
+                      size: 30,
+                      margin: EdgeInsets.all(15),
                     ),
-                  ),
-                ],
+                    SingleChildScrollView(
+                      padding: const EdgeInsets.symmetric(horizontal: 5),
+                      scrollDirection: Axis.horizontal,
+                      child: Row(children: [
+                        ...(state as HomeLoadedState)
+                            .albums
+                            .map((album) => PlaylistCard(
+                                  album: album,
+                                  onTap: () {
+                                    Navigator.pushNamed(
+                                        context, AlbumPage.routeName,
+                                        arguments: {'album': album});
+                                  },
+                                ))
+                      ]),
+                    ),
+                    const SizedBox(height: 15),
+                    SingleChildScrollView(
+                      padding: const EdgeInsets.symmetric(horizontal: 5),
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        children: [
+                          ...(state).artists.map((artist) => ArtistCircular(
+                                artist: artist,
+                                onTap: () {},
+                              ))
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
               ),
             );
           },

@@ -10,12 +10,10 @@ class HomeLoadedState extends HomeState {
 
   HomeLoadedState(this.artists, this.albums);
 
-  @override
   List<Object?> get props => [artists, albums];
 }
 
 class HomeLoadingState extends HomeState {
-  @override
   List<Object?> get props => [];
 }
 
@@ -24,6 +22,5 @@ class HomeErrorState extends HomeState {
 
   HomeErrorState(this.message);
 
-  @override
   List<Object?> get props => [message];
 }

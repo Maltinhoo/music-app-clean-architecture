@@ -39,6 +39,7 @@ class PlaylistCard extends StatelessWidget {
                 ),
                 children: [
                   ...album.artists.map((artist) => TextSpan(
+                        onEnter: (event) => print('onEnter'),
                         text: album.artists.length > 1 ? '$artist ' : artist,
                         style: const TextStyle(
                           color: CustomColors.grey,
