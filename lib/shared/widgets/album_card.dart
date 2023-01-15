@@ -13,6 +13,7 @@ class AlbumCard extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(15),
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           const Placeholder(
             fallbackHeight: 70,
@@ -21,6 +22,7 @@ class AlbumCard extends StatelessWidget {
           const SizedBox(width: 15),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: const [
               MyText(
                 '#SPOTIFYWRAPPED',

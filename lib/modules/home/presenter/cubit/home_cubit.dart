@@ -2,14 +2,15 @@ import 'package:bloc/bloc.dart';
 import 'package:music_app/modules/album/domain/entities/album_entity.dart';
 import 'package:music_app/modules/artist/domain/usecases/get_all_artists_usecase.dart';
 
-import '../../album/domain/usecases/get_all_albums/get_all_albums_usecase.dart';
-import '../../artist/domain/entities/artist_entity.dart';
+import '../../../album/domain/usecases/get_all_albums/get_all_albums_usecase.dart';
+import '../../../artist/domain/entities/artist_entity.dart';
 
 part 'home_state.dart';
 
 class HomeCubit extends Cubit<HomeState> {
   final GetAllArtistsUseCase getAllArtistsUseCase;
   final GetAllAlbumsUseCase getAllAlbumsUseCase;
+
   HomeCubit(this.getAllArtistsUseCase, this.getAllAlbumsUseCase)
       : super(HomeInitial());
 

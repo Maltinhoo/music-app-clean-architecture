@@ -18,7 +18,7 @@ import '../../modules/artist/domain/usecases/get_all_artists_usecase_imp.dart';
 import '../../modules/artist/external/remote/firebase/get_all_artists_firebase_datasource_imp.dart';
 import '../../modules/artist/infra/datasources/get_all_artists_datasource.dart';
 import '../../modules/artist/infra/repositories/get_all_artists_repository_imp.dart';
-import '../../modules/home/cubit/home_cubit.dart';
+import '../../modules/home/presenter/cubit/home_cubit.dart';
 import '../../modules/music/domain/repositories/get_musics_by_artist_repository.dart';
 import '../../modules/music/domain/usecases/get_musics_by_artist_usecase.dart';
 import '../../modules/music/domain/usecases/get_musics_by_artist_usecase_imp.dart';
