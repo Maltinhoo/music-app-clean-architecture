@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:music_app/core/inject/intect.dart';
 
-import '../../shared/widgets/album_card.dart';
-import '../../shared/widgets/artist_circular.dart';
-import '../../shared/widgets/custom_text.dart';
-import '../../shared/widgets/playlist_card.dart';
-import '../../shared/widgets/vectors.dart';
-import '../album/presenter/album_page.dart';
+import '../../../shared/widgets/album_card.dart';
+import '../../../shared/widgets/artist_circular.dart';
+import '../../../shared/widgets/custom_text.dart';
+import '../../../shared/widgets/playlist_card.dart';
+import '../../../shared/widgets/vectors.dart';
+import '../../album/presenter/album_page.dart';
 import 'cubit/home_cubit.dart';
 
 class HomePage extends StatelessWidget {

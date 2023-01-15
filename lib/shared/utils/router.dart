@@ -3,7 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 
 import '../../modules/album/presenter/album_page.dart';
-import '../../modules/home/home_page.dart';
+import '../../modules/home/presenter/home_page.dart';
 import '../../modules/main/main_page.dart';
 import '../widgets/custom_text.dart';
 

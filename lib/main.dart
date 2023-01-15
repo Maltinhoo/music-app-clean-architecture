@@ -22,6 +22,7 @@ class MyApp extends StatelessWidget {
       onGenerateRoute: AppRouter.generateRoute,
       theme: ThemeData(
         scaffoldBackgroundColor: Colors.black,
+        iconTheme: const IconThemeData(color: Colors.white),
       ),
     );
   }

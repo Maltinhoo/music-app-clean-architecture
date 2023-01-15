@@ -12,6 +12,7 @@ enum Vectors {
   search,
   library,
   download_icon,
+  up_down_arrows,
 }
 
 class Vector extends StatelessWidget {
@@ -60,7 +61,7 @@ class Vector extends StatelessWidget {
       fit: fit ?? BoxFit.cover,
       width: width ?? size,
       height: height ?? size,
-      color: color,
+      color: color ?? Colors.white,
       colorBlendMode: blendMode ?? BlendMode.srcIn,
     );
   }
