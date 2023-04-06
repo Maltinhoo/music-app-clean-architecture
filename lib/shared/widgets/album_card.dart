@@ -36,7 +36,7 @@ class AlbumCard extends StatelessWidget {
                 size: 25,
               ),
             ],
-          )
+          ),
         ],
       ),
     );

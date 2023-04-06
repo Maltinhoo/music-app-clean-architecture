@@ -11,8 +11,10 @@ class HomeCubit extends Cubit<HomeState> {
   final GetAllArtistsUseCase getAllArtistsUseCase;
   final GetAllAlbumsUseCase getAllAlbumsUseCase;
 
-  HomeCubit(this.getAllArtistsUseCase, this.getAllAlbumsUseCase)
-      : super(HomeInitial());
+  HomeCubit(
+    this.getAllArtistsUseCase,
+    this.getAllAlbumsUseCase,
+  ) : super(HomeInitial());
 
   Future<List<ArtistEntity>> getAllArtists() async {
     final result = await getAllArtistsUseCase.call();

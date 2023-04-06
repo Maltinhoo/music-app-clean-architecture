@@ -203,7 +203,7 @@ class _AlbumPageState extends State<AlbumPage> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children:
-                            List.generate(10, (index) => const MusicTrack()),
+                            List.generate(20, (index) => const MusicTrack()),
                       ),
                     ),
                   )
@@ -244,7 +244,7 @@ class _AlbumPageState extends State<AlbumPage> {
                       opacity: showTopBar ? 1 : 0,
                       child: MyText(
                         widget.album.title,
-                        textStyle: Theme.of(context).textTheme.headline6,
+                        textStyle: Theme.of(context).textTheme.titleLarge,
                       ),
                     ),
                     Positioned(
