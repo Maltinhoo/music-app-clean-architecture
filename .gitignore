@@ -35,6 +35,7 @@ migrate_working_dir/
 /macos/Runner/GoogleService-Info.plist
 /ios/firebase_app_id_file.json
 /macos/firebase_app_id_file.json
+/lib/modules/authorization/
 
 # Symbolication related
 app.*.symbols

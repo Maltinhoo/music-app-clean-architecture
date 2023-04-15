@@ -16,20 +16,22 @@ class ArtistModel extends ArtistEntity {
     required super.tags,
     required super.songs,
     required super.albums,
+    required super.type,
   });
 
   static ArtistModel fromJson(Map<String, dynamic> json) {
     return ArtistModel(
       id: json['id'],
       name: json['name'],
-      imageUrl: json['imageUrl'],
-      backgroundImageUrl: json['backgroundImageUrl'],
-      monthlyListeners: json['monthlyListeners'],
-      followers: json['followers'],
-      bio: json['bio'],
-      tags: json['tags'],
-      songs: json['songs'],
-      albums: json['albums'],
+      imageUrl: json['images'][0]['url'],
+      backgroundImageUrl: json['images'][0]['url'],
+      monthlyListeners: json['monthlyListeners'] ?? 0,
+      followers: json['followers']['total'],
+      bio: json['bio'] ?? '',
+      tags: json['genres'].cast<String>(),
+      songs: json['songs'] ?? [],
+      albums: json['albums'] ?? [],
+      type: json['type'],
     );
   }
 
@@ -50,6 +52,7 @@ class ArtistModel extends ArtistEntity {
       albums: (doc['albums'] as List<dynamic>)
           .map((album) => AlbumModel.fromJson(album))
           .toList(),
+      type: doc['type'],
     );
   }
 

@@ -3,6 +3,8 @@ import 'package:music_app/modules/album/domain/repositories/get_all_albums_repos
 import 'package:music_app/modules/album/domain/usecases/get_all_albums/get_all_albums_usecase.dart';
 import 'package:music_app/modules/album/external/remote/firebase/get_all_albums_firebase_datasource_imp.dart';
 import 'package:music_app/modules/album/infra/datasources/get_all_albums_datasource.dart';
+import 'package:music_app/modules/authorization/domain/usecases/fetch_token/fetch_token_usecase.dart';
+import 'package:music_app/modules/authorization/presenter/cubit/authorization_cubit.dart';
 
 import '../../modules/album/domain/repositories/get_albums_by_artist_repository.dart';
 import '../../modules/album/domain/usecases/get_albums_by_artist/get_albums_by_artist_usecase.dart';
@@ -15,9 +17,16 @@ import '../../modules/album/infra/repositories/get_all_albums_repository_imp.dar
 import '../../modules/artist/domain/repositories/get_all_artists_repository.dart';
 import '../../modules/artist/domain/usecases/get_all_artists_usecase.dart';
 import '../../modules/artist/domain/usecases/get_all_artists_usecase_imp.dart';
-import '../../modules/artist/external/remote/firebase/get_all_artists_firebase_datasource_imp.dart';
+import '../../modules/artist/external/remote/http/get_all_artists_http_datasouce_imp.dart';
 import '../../modules/artist/infra/datasources/get_all_artists_datasource.dart';
 import '../../modules/artist/infra/repositories/get_all_artists_repository_imp.dart';
+import '../../modules/authorization/domain/repositories/authorization_repository.dart';
+import '../../modules/authorization/domain/usecases/fetch_code/fetch_code_usecase.dart';
+import '../../modules/authorization/domain/usecases/fetch_code/fetch_code_usecase_imp.dart';
+import '../../modules/authorization/domain/usecases/fetch_token/fetch_token_usecase_imp.dart';
+import '../../modules/authorization/external/spotify_api.dart';
+import '../../modules/authorization/infra/datasources/authorization_datasouce.dart';
+import '../../modules/authorization/infra/repositories/authorization_repository_imp.dart';
 import '../../modules/home/presenter/cubit/home_cubit.dart';
 import '../../modules/music/domain/repositories/get_musics_by_artist_repository.dart';
 import '../../modules/music/domain/usecases/get_musics_by_artist_usecase.dart';
@@ -35,13 +44,14 @@ class Inject {
 
     // init all datasources
     getIt.registerLazySingleton<GetAllArtistsDataSource>(
-        () => GetAllArtistsFirebaseDataSourceImp());
+        () => GetAllArtistsHttpDataSourceImp());
     getIt.registerLazySingleton<GetAlbumsByArtistDataSource>(
         () => GetAlbumsByArtistLocalDataSourceImp());
     getIt.registerLazySingleton<GetMusicsByArtistDataSource>(
         () => GetMusicsByArtistLocalDataSourceImp());
     getIt.registerLazySingleton<GetAllAlbumsDataSource>(
         () => GetAllAlbumsFirebaseDataSourceImp());
+    getIt.registerLazySingleton<AuthorizationDataSource>(() => SpotifyApi());
 
     // init all repositories
     getIt.registerLazySingleton<GetAllArtistsRepository>(
@@ -52,6 +62,8 @@ class Inject {
         () => GetMusicsByArtistRepositoryImp(getIt()));
     getIt.registerLazySingleton<GetAllAlbumsRepository>(
         () => GetAllAlbumsRepositoryImp(getIt()));
+    getIt.registerLazySingleton<AuthorizationRepository>(
+        () => AuthorizationRepositoryImp(getIt()));
 
     // init all usecases
     getIt.registerLazySingleton<GetAllArtistsUseCase>(
@@ -62,8 +74,15 @@ class Inject {
         () => GetMusicsByArtistUseCaseImp(getIt()));
     getIt.registerLazySingleton<GetAllAlbumsUseCase>(
         () => GetAllAlbumsUseCaseImp(getIt()));
+    getIt.registerLazySingleton<FetchTokenUseCase>(
+        () => FetchTokenUseCaseImp(getIt()));
+    getIt.registerLazySingleton<FetchCodeUseCase>(
+        () => FetchCodeUseCaseImp(getIt()));
 
     // init all blocs
-    getIt.registerLazySingleton<HomeCubit>(() => HomeCubit(getIt(), getIt()));
+    getIt.registerLazySingleton<HomeCubit>(
+        () => HomeCubit(getIt(), getIt(), getIt()));
+    getIt.registerLazySingleton<AuthorizationCubit>(
+        () => AuthorizationCubit(getIt(), getIt()));
   }
 }

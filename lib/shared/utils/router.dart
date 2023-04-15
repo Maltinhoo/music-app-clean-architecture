@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:music_app/modules/artist/presenter/artist_page.dart';
 
 import '../../modules/album/presenter/album_page.dart';
 import '../../modules/home/presenter/home_page.dart';
@@ -23,6 +24,9 @@ class AppRouter {
           break;
         case AlbumPage.routeName:
           page = AlbumPage(album: args!['album']);
+          break;
+        case ArtistPage.routeName:
+          page = ArtistPage(artist: args!['artist']);
           break;
 
         default:

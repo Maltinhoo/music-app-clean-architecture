@@ -9,6 +9,7 @@ class ArtistEntity {
   int monthlyListeners;
   int followers;
   String bio;
+  String type;
   List<String> tags;
   List<MusicEntity> songs;
   List<AlbumEntity> albums;
@@ -24,5 +25,6 @@ class ArtistEntity {
     required this.tags,
     required this.songs,
     required this.albums,
+    required this.type,
   });
 }

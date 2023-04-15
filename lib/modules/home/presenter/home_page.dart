@@ -8,12 +8,18 @@ import '../../../shared/widgets/custom_text.dart';
 import '../../../shared/widgets/playlist_card.dart';
 import '../../../shared/widgets/vectors.dart';
 import '../../album/presenter/album_page.dart';
+import '../../artist/presenter/artist_page.dart';
 import 'cubit/home_cubit.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   static const routeName = '/home';
   const HomePage({super.key});
 
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,19 +38,7 @@ class HomePage extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     _buildTitlePage(),
-                    // SingleChildScrollView(
-                    //   padding: const EdgeInsets.symmetric(horizontal: 5),
-                    //   scrollDirection: Axis.horizontal,
-                    //   child: Row(
-                    //     children: [
-                    //       ...(state as HomeLoadedState)
-                    //           .artists
-                    //           .map((artist) => MusicCard(artist: artist))
-                    //     ],
-                    //   ),
-                    // ),
                     const AlbumCard(),
-
                     const MyText(
                       'Editor\'s picks',
                       fontWeight: FontWeight.w600,
@@ -75,7 +69,9 @@ class HomePage extends StatelessWidget {
                         children: [
                           ...(state).artists.map((artist) => ArtistCircular(
                                 artist: artist,
-                                onTap: () {},
+                                onTap: () => Navigator.pushNamed(
+                                    context, ArtistPage.routeName,
+                                    arguments: {'artist': artist}),
                               ))
                         ],
                       ),

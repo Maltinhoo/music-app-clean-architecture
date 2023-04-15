@@ -36,10 +36,11 @@ class ArtistCircular extends StatelessWidget {
             const SizedBox(height: 10),
             MyText(
               artist.name,
-              fontWeight: FontWeight.w500,
+              fontWeight: FontWeight.w600,
               size: 22,
               maxLines: 2,
               color: CustomColors.white,
+              textAlign: TextAlign.center,
             ),
           ],
         ),
