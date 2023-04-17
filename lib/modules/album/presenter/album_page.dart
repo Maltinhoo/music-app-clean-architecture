@@ -7,6 +7,7 @@ import 'package:palette_generator/palette_generator.dart';
 
 import '../../../shared/utils/custom_colors.dart';
 import '../../../shared/widgets/music_tack.dart';
+import '../../../shared/widgets/play_app_bar.dart';
 
 class AlbumPage extends StatefulWidget {
   static const routeName = '/album';
@@ -32,25 +33,24 @@ class _AlbumPageState extends State<AlbumPage> {
   @override
   void initState() {
     imageSize = initialSize;
-    scrollController = ScrollController()
-      ..addListener(() {
-        imageSize = initialSize - scrollController.offset;
-        if (imageSize < 0) {
-          imageSize = 0;
-        }
-        containerHeight = containerinitalHeight - scrollController.offset;
-        if (containerHeight < 0) {
-          containerHeight = 0;
-        }
-        imageOpacity = imageSize / initialSize;
-        if (scrollController.offset > 224) {
-          showTopBar = true;
-        } else {
-          showTopBar = false;
-        }
+    scrollController.addListener(() {
+      imageSize = initialSize - scrollController.offset;
+      if (imageSize < 0) {
+        imageSize = 0;
+      }
+      containerHeight = containerinitalHeight - scrollController.offset;
+      if (containerHeight < 0) {
+        containerHeight = 0;
+      }
+      imageOpacity = imageSize / initialSize;
+      if (scrollController.offset > 224) {
+        showTopBar = true;
+      } else {
+        showTopBar = false;
+      }
 
-        setState(() {});
-      });
+      setState(() {});
+    });
     _updatePaletteGenerator(
       CachedNetworkImageProvider(widget.album.albumArtUrl),
     );
@@ -84,12 +84,11 @@ class _AlbumPageState extends State<AlbumPage> {
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
 
-    return Scaffold(
-      body: Stack(
-        children: [
-          Positioned(
-            top: 20,
-            child: Container(
+    return SafeArea(
+      child: Scaffold(
+        body: Stack(
+          children: [
+            Container(
               height: containerHeight,
               width: MediaQuery.of(context).size.width,
               alignment: Alignment.center,
@@ -122,9 +121,7 @@ class _AlbumPageState extends State<AlbumPage> {
                 ],
               ),
             ),
-          ),
-          SafeArea(
-            child: SingleChildScrollView(
+            SingleChildScrollView(
               controller: scrollController,
               physics: const BouncingScrollPhysics(),
               child: Column(
@@ -216,85 +213,14 @@ class _AlbumPageState extends State<AlbumPage> {
                 ],
               ),
             ),
-          ),
-          Positioned(
-              child: AnimatedContainer(
-            duration: const Duration(milliseconds: 250),
-            color: showTopBar ? palletColor : palletColor,
-            padding: const EdgeInsets.symmetric(
-              horizontal: 16,
-              vertical: 8,
-            ),
-            child: SafeArea(
-              child: SizedBox(
-                height: 40,
-                width: MediaQuery.of(context).size.width,
-                child: Stack(
-                  clipBehavior: Clip.none,
-                  alignment: Alignment.center,
-                  children: [
-                    Positioned(
-                      left: 0,
-                      child: GestureDetector(
-                        onTap: () {
-                          Navigator.pop(context);
-                        },
-                        child: const Icon(
-                          Icons.keyboard_arrow_left,
-                          size: 38,
-                        ),
-                      ),
-                    ),
-                    AnimatedOpacity(
-                      duration: const Duration(milliseconds: 250),
-                      opacity: showTopBar ? 1 : 0,
-                      child: MyText(
-                        widget.album.title,
-                        textStyle: Theme.of(context).textTheme.titleLarge,
-                      ),
-                    ),
-                    Positioned(
-                      right: 0,
-                      bottom:
-                          80 - containerHeight.clamp(120.0, double.infinity),
-                      child: Stack(
-                        alignment: Alignment.bottomRight,
-                        children: [
-                          Container(
-                            width: 64,
-                            height: 64,
-                            alignment: Alignment.center,
-                            decoration: const BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: Color(0xff14D860),
-                            ),
-                            child: const Icon(
-                              Icons.play_arrow,
-                              size: 38,
-                            ),
-                          ),
-                          Container(
-                            width: 24,
-                            height: 24,
-                            decoration: const BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: Colors.white,
-                            ),
-                            child: const Icon(
-                              Icons.shuffle,
-                              color: Colors.black,
-                              size: 14,
-                            ),
-                          )
-                        ],
-                      ),
-                    )
-                  ],
-                ),
-              ),
-            ),
-          ))
-        ],
+            PlayAppBar(
+              showTopBar: showTopBar,
+              palletColor: palletColor,
+              containerHeight: containerHeight,
+              title: widget.album.title,
+            )
+          ],
+        ),
       ),
     );
   }

@@ -1,6 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:music_app/modules/artist/domain/entities/artist_entity.dart';
+import 'package:music_app/modules/artist/presenter/widgets/artist_title.dart';
+import 'package:music_app/shared/widgets/custom_text.dart';
+import 'package:music_app/shared/widgets/play_app_bar.dart';
 import 'package:palette_generator/palette_generator.dart';
 
 class ArtistPage extends StatefulWidget {
@@ -19,6 +22,9 @@ class _ArtistPageState extends State<ArtistPage> {
   ScrollController scrollController = ScrollController();
 
   double imageOpacity = 1;
+  bool showTopBar = false;
+  double containerHeight = 400;
+  double containerinitalHeight = 400;
 
   Future<void> _updatePaletteGenerator(ImageProvider image) async {
     paletteGenerator = await PaletteGenerator.fromImageProvider(
@@ -32,6 +38,15 @@ class _ArtistPageState extends State<ArtistPage> {
   void initState() {
     scrollController.addListener(() {
       imageOpacity = 1 - (scrollController.offset / 100);
+      containerHeight = containerinitalHeight - scrollController.offset;
+      if (containerHeight < 0) {
+        containerHeight = 0;
+      }
+      if (scrollController.offset > 115) {
+        showTopBar = true;
+      } else {
+        showTopBar = false;
+      }
       setState(() {});
     });
 
@@ -59,45 +74,75 @@ class _ArtistPageState extends State<ArtistPage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-          body: SingleChildScrollView(
-        physics: const BouncingScrollPhysics(),
-        controller: scrollController,
-        child: Column(
-          children: [
-            Container(
-              height: 400,
-              width: double.infinity,
+          body: Stack(
+        children: [
+          Container(
+            height: containerHeight,
+            width: MediaQuery.of(context).size.width,
+            alignment: Alignment.center,
+            color: palletColor,
+            child: Container(
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
                   colors: [
-                    palletColor.withOpacity(1),
-                    palletColor.withOpacity(.05),
-                    palletColor.withOpacity(0),
+                    Colors.black.withOpacity(0),
+                    Colors.black.withOpacity(0),
+                    Colors.black.withOpacity(1),
                   ],
                 ),
               ),
-              child: Column(
-                children: [
-                  AnimatedOpacity(
-                    opacity: imageOpacity.clamp(0.0, 1.0),
-                    duration: const Duration(milliseconds: 500),
-                    child: CachedNetworkImage(
-                      imageUrl: widget.artist.imageUrl,
-                      height: 300,
-                      width: double.infinity,
-                      fit: BoxFit.cover,
-                    ),
-                  )
-                ],
-              ),
             ),
-            const Placeholder(
-              fallbackHeight: 500,
-            )
-          ],
-        ),
+          ),
+          SingleChildScrollView(
+            physics: const BouncingScrollPhysics(
+              parent: AlwaysScrollableScrollPhysics(),
+            ),
+            controller: scrollController,
+            child: Column(
+              children: [
+                Container(
+                  height: 500,
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: [
+                        Colors.black.withOpacity(0),
+                        Colors.black.withOpacity(0),
+                        Colors.black.withOpacity(1),
+                      ],
+                    ),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      ArtistTitle(
+                        imageOpacity: imageOpacity,
+                        artist: widget.artist,
+                      ),
+                      MyText(
+                        '${widget.artist.followers} seguidores',
+                        fontWeight: FontWeight.w500,
+                        size: 20,
+                        margin: const EdgeInsets.only(left: 10, top: 10),
+                      )
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 2000)
+              ],
+            ),
+          ),
+          PlayAppBar(
+            showTopBar: showTopBar,
+            palletColor: palletColor,
+            containerHeight: containerHeight,
+            title: widget.artist.name,
+          )
+        ],
       )),
     );
   }
