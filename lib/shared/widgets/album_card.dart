@@ -1,43 +1,57 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:music_app/modules/album/domain/entities/album_entity.dart';
+import 'package:music_app/shared/widgets/bounce_widget.dart';
 
 import '../utils/custom_colors.dart';
-import 'custom_text.dart';
 
 class AlbumCard extends StatelessWidget {
+  final AlbumEntity album;
+  final VoidCallback onTap;
   const AlbumCard({
     Key? key,
+    required this.album,
+    required this.onTap,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(15),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          const Placeholder(
-            fallbackHeight: 70,
-            fallbackWidth: 70,
-          ),
-          const SizedBox(width: 15),
-          Column(
+      padding: const EdgeInsets.only(right: 10, left: 10),
+      child: Bouncing(
+        onTap: onTap,
+        child: SizedBox(
+          width: 160,
+          child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: const [
-              MyText(
-                '#SPOTIFYWRAPPED',
-                fontWeight: FontWeight.w400,
-                size: 15,
-                color: CustomColors.grey2,
+            children: [
+              CachedNetworkImage(
+                imageUrl: album.albumArtUrl,
+                height: 160,
               ),
-              MyText(
-                'Your 2021 in review',
-                fontWeight: FontWeight.w600,
-                size: 25,
-              ),
+              const SizedBox(height: 10),
+              RichText(
+                  text: TextSpan(
+                style: const TextStyle(
+                  color: CustomColors.white,
+                  fontSize: 15,
+                  fontWeight: FontWeight.w600,
+                ),
+                children: [
+                  ...album.artists.map((artist) => TextSpan(
+                        onEnter: (event) => print('onEnter'),
+                        text: album.artists.length > 1 ? '$artist ' : artist,
+                        style: const TextStyle(
+                          color: CustomColors.grey,
+                          fontSize: 15,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ))
+                ],
+              ))
             ],
           ),
-        ],
+        ),
       ),
     );
   }

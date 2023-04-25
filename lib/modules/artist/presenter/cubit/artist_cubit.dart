@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
-import 'package:music_app/modules/artist/domain/usecases/get_artist_top_tracks_use_case.dart';
+import 'package:music_app/modules/artist/domain/usecases/get_artist_top_tracks_usecase.dart';
 import 'package:music_app/modules/music/domain/entities/music_entity.dart';
 import 'package:music_app/modules/music/domain/usecases/get_musics_by_artist_usecase.dart';
 

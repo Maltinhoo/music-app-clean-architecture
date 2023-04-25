@@ -7,10 +7,11 @@ class HomeInitial extends HomeState {}
 class HomeLoadedState extends HomeState {
   final List<ArtistEntity> artists;
   final List<AlbumEntity> albums;
+  final List<PlaylistEntity> playlists;
 
-  HomeLoadedState(this.artists, this.albums);
+  HomeLoadedState(this.artists, this.albums, this.playlists);
 
-  List<Object?> get props => [artists, albums];
+  List<Object?> get props => [artists, albums, playlists];
 }
 
 class HomeLoadingState extends HomeState {

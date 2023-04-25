@@ -4,8 +4,6 @@ import 'package:music_app/shared/widgets/bounce_widget.dart';
 import 'package:music_app/shared/widgets/custom_text.dart';
 import 'package:music_app/shared/widgets/vectors.dart';
 
-import '../../../shared/widgets/album_card.dart';
-
 class YourLibrary extends StatefulWidget {
   static const routeName = '/yourLibrary';
   const YourLibrary({super.key});
@@ -111,32 +109,32 @@ class _YourLibraryState extends State<YourLibrary> {
                         ],
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 20, bottom: 70),
-                      child: _icon == Icons.grid_view_outlined
-                          ? Wrap(
-                              runSpacing: 10,
-                              spacing: 20,
-                              children: const [
-                                SizedBox(
-                                  width: 160,
-                                  height: 160,
-                                  child: Placeholder(),
-                                ),
-                                SizedBox(
-                                  width: 160,
-                                  height: 160,
-                                  child: Placeholder(),
-                                ),
-                              ],
-                            )
-                          : Column(
-                              children: const [
-                                AlbumCard(),
-                                AlbumCard(),
-                              ],
-                            ),
-                    ),
+                    // Padding(
+                    //   padding: const EdgeInsets.only(top: 20, bottom: 70),
+                    //   child: _icon == Icons.grid_view_outlined
+                    //       ? Wrap(
+                    //           runSpacing: 10,
+                    //           spacing: 20,
+                    //           children: const [
+                    //             SizedBox(
+                    //               width: 160,
+                    //               height: 160,
+                    //               child: Placeholder(),
+                    //             ),
+                    //             SizedBox(
+                    //               width: 160,
+                    //               height: 160,
+                    //               child: Placeholder(),
+                    //             ),
+                    //           ],
+                    //         )
+                    //       : Column(
+                    //           children:  [
+                    //             AlbumCard(),
+                    //             AlbumCard(),
+                    //           ],
+                    //         ),
+                    // ),
                   ],
                 )))
       ],

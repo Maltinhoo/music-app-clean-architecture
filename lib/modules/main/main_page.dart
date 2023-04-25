@@ -30,7 +30,7 @@ class MainPage extends StatelessWidget {
                         ],
                       ),
                       AnimatedPositioned(
-                        bottom: 0,
+                        bottom: -100,
                         duration: Duration(milliseconds: 300),
                         child: MusicSnackBar(),
                       )

@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:music_app/core/inject/intect.dart';
+import 'package:music_app/modules/playlist/infra/models/playlist_model.dart';
+import 'package:music_app/shared/widgets/playlist_card.dart';
 
 import '../../../shared/widgets/album_card.dart';
 import '../../../shared/widgets/artist_circular.dart';
 import '../../../shared/widgets/custom_text.dart';
-import '../../../shared/widgets/playlist_card.dart';
 import '../../../shared/widgets/vectors.dart';
 import '../../album/presenter/album_page.dart';
 import '../../artist/presenter/artist_page.dart';
@@ -38,7 +39,19 @@ class _HomePageState extends State<HomePage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     _buildTitlePage(),
-                    const AlbumCard(),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8),
+                      child: Wrap(
+                        spacing: 15,
+                        runSpacing: 15,
+                        children: List.generate(
+                            (state as HomeLoadedState).playlists.length,
+                            (index) => PlaylistCard(
+                                  playlist:
+                                      (state).playlists[index] as PlaylistModel,
+                                )),
+                      ),
+                    ),
                     const MyText(
                       'Editor\'s picks',
                       fontWeight: FontWeight.w600,
@@ -49,16 +62,14 @@ class _HomePageState extends State<HomePage> {
                       padding: const EdgeInsets.symmetric(horizontal: 5),
                       scrollDirection: Axis.horizontal,
                       child: Row(children: [
-                        ...(state as HomeLoadedState)
-                            .albums
-                            .map((album) => PlaylistCard(
-                                  album: album,
-                                  onTap: () {
-                                    Navigator.pushNamed(
-                                        context, AlbumPage.routeName,
-                                        arguments: {'album': album});
-                                  },
-                                ))
+                        ...(state).albums.map((album) => AlbumCard(
+                              album: album,
+                              onTap: () {
+                                Navigator.pushNamed(
+                                    context, AlbumPage.routeName,
+                                    arguments: {'album': album});
+                              },
+                            ))
                       ]),
                     ),
                     const SizedBox(height: 15),
