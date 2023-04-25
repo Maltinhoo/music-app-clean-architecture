@@ -35,9 +35,16 @@ class ArtistTitle extends StatelessWidget {
             child: MyText(
               artist.name,
               fontWeight: FontWeight.w700,
-              size: 50,
+              size: 45,
               textAlign: TextAlign.left,
               color: Colors.white.withOpacity(imageOpacity.clamp(0.0, 1.0)),
+              shadows: [
+                Shadow(
+                  color: Colors.black.withOpacity(imageOpacity.clamp(0.0, 1.0)),
+                  offset: const Offset(2, 2),
+                  blurRadius: 2,
+                ),
+              ],
             ),
           ),
         ),

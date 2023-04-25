@@ -6,7 +6,6 @@ import 'package:music_app/shared/widgets/vectors.dart';
 import 'package:palette_generator/palette_generator.dart';
 
 import '../../../shared/utils/custom_colors.dart';
-import '../../../shared/widgets/music_tack.dart';
 import '../../../shared/widgets/play_app_bar.dart';
 
 class AlbumPage extends StatefulWidget {
@@ -198,18 +197,18 @@ class _AlbumPageState extends State<AlbumPage> {
                     ),
                   ),
                   // TODO: add songs
-                  SizedBox(
-                    width: width,
-                    child: Padding(
-                      padding:
-                          const EdgeInsets.only(top: 20, left: 20, right: 20),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children:
-                            List.generate(20, (index) => const MusicTrack()),
-                      ),
-                    ),
-                  )
+                  // SizedBox(
+                  //   width: width,
+                  //   child: Padding(
+                  //     padding:
+                  //         const EdgeInsets.only(top: 20, left: 20, right: 20),
+                  //     child: Column(
+                  //       crossAxisAlignment: CrossAxisAlignment.start,
+                  //       children:
+                  //           List.generate(20, (index) => const MusicTrack()),
+                  //     ),
+                  //   ),
+                  // )
                 ],
               ),
             ),

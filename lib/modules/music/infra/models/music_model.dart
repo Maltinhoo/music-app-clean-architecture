@@ -4,22 +4,18 @@ class MusicModel extends MusicEntity {
   MusicModel({
     required super.id,
     required super.title,
-    required super.artists,
     required super.albumId,
-    required super.duration,
-    required super.reproductionCount,
-    required super.isExplicit,
+    required super.imageUrl,
+    required super.previewUrl,
   });
 
   static MusicModel fromJson(Map<String, dynamic> json) {
     return MusicModel(
       id: json['id'],
-      title: json['title'],
-      artists: json['artists'],
-      albumId: json['albumId'],
-      duration: json['duration'],
-      reproductionCount: json['reproduction_count'],
-      isExplicit: json['is_explicit'],
+      title: json['name'],
+      albumId: json['album']['id'],
+      imageUrl: json['album']['images'][0]['url'],
+      previewUrl: json['preview_url'] ?? '',
     );
   }
 
@@ -27,11 +23,9 @@ class MusicModel extends MusicEntity {
     return {
       'id': id,
       'title': title,
-      'artists': artists,
       'albumId': albumId,
-      'duration': duration,
-      'reproduction_count': reproductionCount,
-      'is_explicit': isExplicit,
+      'imageUrl': imageUrl,
+      'previewUrl': previewUrl,
     };
   }
 }

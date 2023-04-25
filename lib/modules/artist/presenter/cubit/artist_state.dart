@@ -8,9 +8,9 @@ class ArtistInitial extends ArtistState {}
 class ArtistLoadingState extends ArtistState {}
 
 class ArtistLoadedState extends ArtistState {
-  final List<MusicEntity> musics;
+  final List<MusicEntity> topTracks;
 
-  ArtistLoadedState(this.musics);
+  ArtistLoadedState(this.topTracks);
 }
 
 class ArtistErrorState extends ArtistState {

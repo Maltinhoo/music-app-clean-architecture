@@ -1,12 +1,16 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:music_app/modules/music/infra/models/music_model.dart';
 import 'package:music_app/shared/widgets/bounce_widget.dart';
 
 import '../utils/custom_colors.dart';
 import 'custom_text.dart';
 
 class MusicTrack extends StatelessWidget {
+  final MusicModel music;
   const MusicTrack({
     Key? key,
+    required this.music,
   }) : super(key: key);
 
   @override
@@ -16,22 +20,17 @@ class MusicTrack extends StatelessWidget {
         padding: const EdgeInsets.only(bottom: 20),
         child: Row(
           children: [
+            CachedNetworkImage(
+              imageUrl: music.imageUrl,
+              height: 50,
+              width: 50,
+            ),
+            const SizedBox(width: 20),
             Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: const [
-                  MyText(
-                    'Love Me Do - Mono / Remastered',
-                    size: 18,
-                    fontWeight: FontWeight.w500,
-                  ),
-                  MyText(
-                    'Love Me Do - Mono / Remastered',
-                    size: 14,
-                    fontWeight: FontWeight.w500,
-                    color: CustomColors.grey3,
-                  ),
-                ],
+              child: MyText(
+                music.title,
+                size: 18,
+                fontWeight: FontWeight.w500,
               ),
             ),
             const Bouncing(

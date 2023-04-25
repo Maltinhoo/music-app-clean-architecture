@@ -3,6 +3,8 @@ import 'package:music_app/modules/album/domain/repositories/get_all_albums_repos
 import 'package:music_app/modules/album/domain/usecases/get_all_albums/get_all_albums_usecase.dart';
 import 'package:music_app/modules/album/external/remote/firebase/get_all_albums_firebase_datasource_imp.dart';
 import 'package:music_app/modules/album/infra/datasources/get_all_albums_datasource.dart';
+import 'package:music_app/modules/artist/domain/usecases/get_artist_top_tracks_use_case.dart';
+import 'package:music_app/modules/artist/presenter/cubit/artist_cubit.dart';
 import 'package:music_app/modules/authorization/domain/usecases/fetch_token/fetch_token_usecase.dart';
 import 'package:music_app/modules/authorization/presenter/cubit/authorization_cubit.dart';
 
@@ -14,12 +16,13 @@ import '../../modules/album/external/stub/get_albums_by_artist_local_datasource_
 import '../../modules/album/infra/datasources/get_albums_by_artist_datasource.dart';
 import '../../modules/album/infra/repositories/get_albums_by_artist_repository_imp.dart';
 import '../../modules/album/infra/repositories/get_all_albums_repository_imp.dart';
-import '../../modules/artist/domain/repositories/get_all_artists_repository.dart';
+import '../../modules/artist/domain/repositories/artists_repository.dart';
 import '../../modules/artist/domain/usecases/get_all_artists_usecase.dart';
-import '../../modules/artist/domain/usecases/get_all_artists_usecase_imp.dart';
 import '../../modules/artist/external/remote/http/get_all_artists_http_datasouce_imp.dart';
+import '../../modules/artist/external/remote/http/get_artist_top_tracks_http_datasource_imp.dart';
 import '../../modules/artist/infra/datasources/get_all_artists_datasource.dart';
-import '../../modules/artist/infra/repositories/get_all_artists_repository_imp.dart';
+import '../../modules/artist/infra/datasources/get_artist_top_tracks.dart';
+import '../../modules/artist/infra/repositories/artists_repository_imp.dart';
 import '../../modules/authorization/domain/repositories/authorization_repository.dart';
 import '../../modules/authorization/domain/usecases/fetch_code/fetch_code_usecase.dart';
 import '../../modules/authorization/domain/usecases/fetch_code/fetch_code_usecase_imp.dart';
@@ -51,11 +54,13 @@ class Inject {
         () => GetMusicsByArtistLocalDataSourceImp());
     getIt.registerLazySingleton<GetAllAlbumsDataSource>(
         () => GetAllAlbumsFirebaseDataSourceImp());
+    getIt.registerFactory<GetArtistTopTracksDataSource>(
+        () => GetArtistTopTracksHttpDataSourceImp());
     getIt.registerLazySingleton<AuthorizationDataSource>(() => SpotifyApi());
 
     // init all repositories
-    getIt.registerLazySingleton<GetAllArtistsRepository>(
-        () => GetAllArtistsRepositoryImp(getIt()));
+    getIt.registerLazySingleton<ArtistRepository>(
+        () => ArtistsRepositoryImp(getIt(), getIt()));
     getIt.registerLazySingleton<GetAlbumsByArtistRepository>(
         () => GetAlbumsByArtistRepositoryImp(getIt()));
     getIt.registerLazySingleton<GetMusicsByArtistRepository>(
@@ -68,6 +73,8 @@ class Inject {
     // init all usecases
     getIt.registerLazySingleton<GetAllArtistsUseCase>(
         () => GetAllArtistsUseCaseImp(getIt()));
+    getIt.registerFactory<GetArtistTopTracksUseCase>(
+        () => GetArtistTopTracksUseCaseImp(getIt()));
     getIt.registerLazySingleton<GetAlbumsByArtistUseCase>(
         () => GetAlbumsByArtistUseCaseImp(getIt()));
     getIt.registerLazySingleton<GetMusicsByArtistUseCase>(
@@ -84,5 +91,6 @@ class Inject {
         () => HomeCubit(getIt(), getIt(), getIt()));
     getIt.registerLazySingleton<AuthorizationCubit>(
         () => AuthorizationCubit(getIt(), getIt()));
+    getIt.registerFactory<ArtistCubit>(() => ArtistCubit(getIt(), getIt()));
   }
 }
