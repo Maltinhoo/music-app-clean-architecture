@@ -30,6 +30,8 @@ class ArtistCircular extends StatelessWidget {
               child: CachedNetworkImage(
                 imageUrl: artist.imageUrl,
                 fit: BoxFit.fill,
+                width: 140,
+                height: 140,
                 errorWidget: (context, url, error) => const Icon(Icons.error),
               ),
             ),

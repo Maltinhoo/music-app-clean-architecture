@@ -35,6 +35,13 @@ class _MusicSnackBarState extends State<MusicSnackBar>
   }
 
   @override
+  void dispose() {
+    _controller.dispose();
+    _myAnimation.removeListener(() {});
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Container(
       width: MediaQuery.of(context).size.width - 30,

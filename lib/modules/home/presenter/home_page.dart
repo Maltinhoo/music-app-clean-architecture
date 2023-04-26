@@ -12,15 +12,10 @@ import '../../album/presenter/album_page.dart';
 import '../../artist/presenter/artist_page.dart';
 import 'cubit/home_cubit.dart';
 
-class HomePage extends StatefulWidget {
+class HomePage extends StatelessWidget {
   static const routeName = '/home';
   const HomePage({super.key});
 
-  @override
-  State<HomePage> createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -73,6 +68,12 @@ class _HomePageState extends State<HomePage> {
                       ]),
                     ),
                     const SizedBox(height: 15),
+                    const MyText(
+                      'Seus artistas favoritos',
+                      fontWeight: FontWeight.w600,
+                      size: 30,
+                      margin: EdgeInsets.all(15),
+                    ),
                     SingleChildScrollView(
                       padding: const EdgeInsets.symmetric(horizontal: 5),
                       scrollDirection: Axis.horizontal,

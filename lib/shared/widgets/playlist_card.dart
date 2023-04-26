@@ -15,7 +15,7 @@ class PlaylistCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
         height: 70,
-        width: 180,
+        width: MediaQuery.of(context).size.width * .45,
         decoration: BoxDecoration(
             color: const Color(0xff414141),
             borderRadius: BorderRadius.circular(5)),

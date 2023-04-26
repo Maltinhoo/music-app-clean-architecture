@@ -6,6 +6,7 @@ import 'package:music_app/modules/album/infra/datasources/get_all_albums_datasou
 import 'package:music_app/modules/artist/domain/usecases/get_artist_top_tracks_usecase.dart';
 import 'package:music_app/modules/artist/presenter/cubit/artist_cubit.dart';
 import 'package:music_app/modules/authorization/domain/usecases/fetch_token/fetch_token_usecase.dart';
+import 'package:music_app/modules/authorization/domain/usecases/refresh_token/refresh_token.dart';
 import 'package:music_app/modules/authorization/presenter/cubit/authorization_cubit.dart';
 import 'package:music_app/modules/playlist/domain/usecases/get_featured_playlists_usecase.dart';
 
@@ -28,6 +29,7 @@ import '../../modules/authorization/domain/repositories/authorization_repository
 import '../../modules/authorization/domain/usecases/fetch_code/fetch_code_usecase.dart';
 import '../../modules/authorization/domain/usecases/fetch_code/fetch_code_usecase_imp.dart';
 import '../../modules/authorization/domain/usecases/fetch_token/fetch_token_usecase_imp.dart';
+import '../../modules/authorization/domain/usecases/refresh_token/refresh_token_imp.dart';
 import '../../modules/authorization/external/spotify_api.dart';
 import '../../modules/authorization/infra/datasources/authorization_datasouce.dart';
 import '../../modules/authorization/infra/repositories/authorization_repository_imp.dart';
@@ -52,7 +54,7 @@ class Inject {
 
     // init all datasources
     getIt.registerLazySingleton<GetAllArtistsDataSource>(
-        () => GetAllArtistsHttpDataSourceImp());
+        () => GetAllArtistsHttpDataSourceImp(getIt()));
     getIt.registerLazySingleton<GetAlbumsByArtistDataSource>(
         () => GetAlbumsByArtistLocalDataSourceImp());
     getIt.registerLazySingleton<GetMusicsByArtistDataSource>(
@@ -60,7 +62,7 @@ class Inject {
     getIt.registerLazySingleton<GetAllAlbumsDataSource>(
         () => GetAllAlbumsFirebaseDataSourceImp());
     getIt.registerFactory<GetArtistTopTracksDataSource>(
-        () => GetArtistTopTracksHttpDataSourceImp());
+        () => GetArtistTopTracksHttpDataSourceImp(getIt()));
     getIt.registerLazySingleton<AuthorizationDataSource>(() => SpotifyApi());
     getIt.registerFactory<PlaylistDataSource>(
         () => GetFeaturedPlaylistsHttpDataSourceImp());
@@ -96,6 +98,8 @@ class Inject {
         () => FetchCodeUseCaseImp(getIt()));
     getIt.registerLazySingleton<GetFeaturedPlaylistsUsecase>(
         () => GetFeaturedPlaylistsUsecaseImp(getIt()));
+    getIt.registerFactory<RefreshTokenUseCase>(
+        () => RefreshTokenUseCaseImp(getIt()));
 
     // init all blocs
     getIt.registerLazySingleton<HomeCubit>(
