@@ -4,6 +4,7 @@ class MusicEntity {
   String albumId;
   String imageUrl;
   String previewUrl;
+  List<String> artists;
 
   MusicEntity({
     required this.id,
@@ -11,5 +12,6 @@ class MusicEntity {
     required this.albumId,
     required this.imageUrl,
     required this.previewUrl,
+    required this.artists,
   });
 }

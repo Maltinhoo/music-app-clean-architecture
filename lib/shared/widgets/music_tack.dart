@@ -15,6 +15,7 @@ class MusicTrack extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var artists = music.artists.join(', ');
     return Bouncing(
       child: Padding(
         padding: const EdgeInsets.only(bottom: 20),
@@ -27,10 +28,20 @@ class MusicTrack extends StatelessWidget {
             ),
             const SizedBox(width: 20),
             Expanded(
-              child: MyText(
-                music.title,
-                size: 18,
-                fontWeight: FontWeight.w500,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  MyText(
+                    music.title,
+                    size: 18,
+                    fontWeight: FontWeight.w500,
+                  ),
+                  MyText(
+                    artists,
+                    size: 14,
+                    color: CustomColors.grey3,
+                  )
+                ],
               ),
             ),
             const Bouncing(

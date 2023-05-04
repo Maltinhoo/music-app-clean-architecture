@@ -26,70 +26,67 @@ class HomePage extends StatelessWidget {
             if (state is HomeLoadingState) {
               return const Center(child: CircularProgressIndicator());
             }
-            return Padding(
+            return SingleChildScrollView(
+              physics: const BouncingScrollPhysics(),
               padding: const EdgeInsets.only(top: kToolbarHeight - 30),
-              child: SingleChildScrollView(
-                physics: const BouncingScrollPhysics(),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    _buildTitlePage(),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8),
-                      child: Wrap(
-                        spacing: 15,
-                        runSpacing: 15,
-                        children: List.generate(
-                            (state as HomeLoadedState).playlists.length,
-                            (index) => PlaylistCard(
-                                  playlist:
-                                      (state).playlists[index] as PlaylistModel,
-                                )),
-                      ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  _buildTitlePage(),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8),
+                    child: Wrap(
+                      spacing: 15,
+                      runSpacing: 15,
+                      children: List.generate(
+                          (state as HomeLoadedState).playlists.length,
+                          (index) => PlaylistCard(
+                                playlist:
+                                    (state).playlists[index] as PlaylistModel,
+                              )),
                     ),
-                    const MyText(
-                      'Editor\'s picks',
-                      fontWeight: FontWeight.w600,
-                      size: 30,
-                      margin: EdgeInsets.all(15),
-                    ),
-                    SingleChildScrollView(
-                      padding: const EdgeInsets.symmetric(horizontal: 5),
-                      scrollDirection: Axis.horizontal,
-                      child: Row(children: [
-                        ...(state).albums.map((album) => AlbumCard(
-                              album: album,
-                              onTap: () {
-                                Navigator.pushNamed(
-                                    context, AlbumPage.routeName,
-                                    arguments: {'album': album});
-                              },
+                  ),
+                  const MyText(
+                    'Editor\'s picks',
+                    fontWeight: FontWeight.w600,
+                    size: 30,
+                    margin: EdgeInsets.all(15),
+                  ),
+                  SingleChildScrollView(
+                    padding: const EdgeInsets.symmetric(horizontal: 5),
+                    scrollDirection: Axis.horizontal,
+                    child: Row(children: [
+                      ...(state).albums.map((album) => AlbumCard(
+                            album: album,
+                            onTap: () {
+                              Navigator.pushNamed(context, AlbumPage.routeName,
+                                  arguments: {'album': album});
+                            },
+                          ))
+                    ]),
+                  ),
+                  const SizedBox(height: 15),
+                  const MyText(
+                    'Seus artistas favoritos',
+                    fontWeight: FontWeight.w600,
+                    size: 30,
+                    margin: EdgeInsets.all(15),
+                  ),
+                  SingleChildScrollView(
+                    padding: const EdgeInsets.symmetric(horizontal: 5),
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      children: [
+                        ...(state).artists.map((artist) => ArtistCircular(
+                              artist: artist,
+                              onTap: () => Navigator.pushNamed(
+                                  context, ArtistPage.routeName,
+                                  arguments: {'artist': artist}),
                             ))
-                      ]),
+                      ],
                     ),
-                    const SizedBox(height: 15),
-                    const MyText(
-                      'Seus artistas favoritos',
-                      fontWeight: FontWeight.w600,
-                      size: 30,
-                      margin: EdgeInsets.all(15),
-                    ),
-                    SingleChildScrollView(
-                      padding: const EdgeInsets.symmetric(horizontal: 5),
-                      scrollDirection: Axis.horizontal,
-                      child: Row(
-                        children: [
-                          ...(state).artists.map((artist) => ArtistCircular(
-                                artist: artist,
-                                onTap: () => Navigator.pushNamed(
-                                    context, ArtistPage.routeName,
-                                    arguments: {'artist': artist}),
-                              ))
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             );
           },

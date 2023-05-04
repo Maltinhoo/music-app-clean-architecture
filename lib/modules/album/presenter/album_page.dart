@@ -62,7 +62,6 @@ class _AlbumPageState extends State<AlbumPage> {
       image,
       maximumColorCount: 3,
     );
-    setState(() {});
   }
 
   Color get palletColor {

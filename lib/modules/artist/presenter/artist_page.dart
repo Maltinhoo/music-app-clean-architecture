@@ -37,7 +37,6 @@ class _ArtistPageState extends State<ArtistPage> {
       image,
       maximumColorCount: 5,
     );
-    setState(() {});
   }
 
   @override
@@ -59,6 +58,7 @@ class _ArtistPageState extends State<ArtistPage> {
     _updatePaletteGenerator(
       CachedNetworkImageProvider(widget.artist.imageUrl),
     );
+
     super.initState();
   }
 
