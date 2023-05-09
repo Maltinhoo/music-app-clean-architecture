@@ -15,12 +15,22 @@ class ArtistsRepositoryImp implements ArtistRepository {
 
   @override
   Future<Either<Exception, List<ArtistEntity>>> getAllArtists() async {
-    return _getAllArtistsDataSource();
+    try {
+      final result = await _getAllArtistsDataSource();
+      return Right(result);
+    } catch (e) {
+      return Left(Exception(e));
+    }
   }
 
   @override
   Future<Either<Exception, List<MusicEntity>>> getArtistTopTracks(
-      String artistId) {
-    return _getArtistTopTracksDataSource(artistId);
+      String artistId) async {
+    try {
+      final result = await _getArtistTopTracksDataSource(artistId);
+      return Right(result);
+    } catch (e) {
+      return Left(Exception(e));
+    }
   }
 }

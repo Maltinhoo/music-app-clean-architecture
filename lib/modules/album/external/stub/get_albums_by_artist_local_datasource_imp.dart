@@ -1,5 +1,3 @@
-import 'package:dartz/dartz.dart';
-
 import '../../infra/datasources/get_albums_by_artist_datasource.dart';
 import '../../infra/models/album_model.dart';
 
@@ -19,12 +17,7 @@ class GetAlbumsByArtistLocalDataSourceImp
   ];
 
   @override
-  Future<Either<Exception, List<AlbumModel>>> call(String artistId) async {
-    try {
-      var albumsList = albums.map((e) => AlbumModel.fromJson(e)).toList();
-      return Right(albumsList);
-    } catch (e) {
-      return Left(Exception('Error getting all artists'));
-    }
+  Future<List<AlbumModel>> call(String artistId) async {
+    return albums.map((album) => AlbumModel.fromJson(album)).toList();
   }
 }

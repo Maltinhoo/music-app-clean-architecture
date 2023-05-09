@@ -11,6 +11,11 @@ class GetAllAlbumsRepositoryImp implements GetAllAlbumsRepository {
 
   @override
   Future<Either<Exception, List<AlbumEntity>>> call() async {
-    return await _getAllAlbumsDataSource();
+    try {
+      final result = await _getAllAlbumsDataSource();
+      return Right(result);
+    } catch (e) {
+      return Left(Exception(e));
+    }
   }
 }

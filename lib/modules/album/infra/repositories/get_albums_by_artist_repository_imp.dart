@@ -11,6 +11,11 @@ class GetAlbumsByArtistRepositoryImp implements GetAlbumsByArtistRepository {
 
   @override
   Future<Either<Exception, List<AlbumEntity>>> call(String artistId) async {
-    return _getAlbumsByArtistDataSource(artistId);
+    try {
+      final result = await _getAlbumsByArtistDataSource(artistId);
+      return Right(result);
+    } catch (e) {
+      return Left(Exception(e));
+    }
   }
 }

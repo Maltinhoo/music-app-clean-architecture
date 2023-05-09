@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:dartz/dartz.dart';
 import 'package:http/http.dart' as http;
 import 'package:music_app/modules/authorization/domain/usecases/refresh_token/refresh_token.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -14,7 +13,7 @@ class GetAllArtistsHttpDataSourceImp implements GetAllArtistsDataSource {
   GetAllArtistsHttpDataSourceImp(this._refreshToken);
 
   @override
-  Future<Either<Exception, List<ArtistModel>>> call() async {
+  Future<List<ArtistModel>> call() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String accessToken = prefs.getString('access_token') ?? '';
     String tokenType = prefs.getString('token_type') ?? '';
@@ -36,7 +35,7 @@ class GetAllArtistsHttpDataSourceImp implements GetAllArtistsDataSource {
         var result = (json.decode(response.body)['artists'] as List)
             .map((e) => ArtistModel.fromJson(e))
             .toList();
-        return Right(result);
+        return result;
       } else {
         // If that call was not successful, throw an error.
         print("StatusCode: ${response.statusCode}");
@@ -44,7 +43,7 @@ class GetAllArtistsHttpDataSourceImp implements GetAllArtistsDataSource {
         throw Exception('Failed to get Artists');
       }
     } catch (e) {
-      return Left(Exception('Error getting all artists'));
+      throw Exception('Failed to get Artists');
     }
   }
 }
