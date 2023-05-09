@@ -47,7 +47,7 @@ class HomePage extends StatelessWidget {
                     ),
                   ),
                   const MyText(
-                    'Editor\'s picks',
+                    'Álbuns em alta pra você',
                     fontWeight: FontWeight.w600,
                     size: 30,
                     margin: EdgeInsets.all(15),
@@ -96,22 +96,27 @@ class HomePage extends StatelessWidget {
   }
 
   Widget _buildTitlePage() {
+    final date = DateTime.now();
     return Padding(
       padding: const EdgeInsets.only(left: 15, right: 15, bottom: 15),
       child: Row(
-        children: const [
+        children: [
           Expanded(
             child: MyText(
-              'Recently played',
+              date.hour < 12
+                  ? 'Bom dia'
+                  : date.hour < 18
+                      ? 'Boa tarde'
+                      : 'Boa noite',
               fontWeight: FontWeight.w700,
               size: 28,
             ),
           ),
-          Vector(Vectors.notification),
-          SizedBox(width: 15),
-          Vector(Vectors.recently_played),
-          SizedBox(width: 15),
-          Vector(Vectors.settings),
+          const Vector(Vectors.notification),
+          const SizedBox(width: 15),
+          const Vector(Vectors.recently_played),
+          const SizedBox(width: 15),
+          const Vector(Vectors.settings),
         ],
       ),
     );

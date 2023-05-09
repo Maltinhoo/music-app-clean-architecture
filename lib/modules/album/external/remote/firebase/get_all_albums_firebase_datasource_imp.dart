@@ -11,8 +11,6 @@ class GetAllAlbumsFirebaseDataSourceImp implements GetAllAlbumsDataSource {
   @override
   Future<List<AlbumModel>> call() async {
     final result = await firestore.collection('albums').get();
-    return result.docs
-        .map((album) => AlbumModel.fromJson(album.data()))
-        .toList();
+    return result.docs.map((album) => AlbumModel.fromDocument(album)).toList();
   }
 }

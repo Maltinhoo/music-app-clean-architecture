@@ -1,6 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:music_app/modules/album/infra/models/album_model.dart';
 import 'package:music_app/shared/widgets/custom_text.dart';
 import 'package:music_app/shared/widgets/vectors.dart';
 import 'package:palette_generator/palette_generator.dart';
@@ -8,18 +7,19 @@ import 'package:palette_generator/palette_generator.dart';
 import '../../../shared/utils/custom_colors.dart';
 import '../../../shared/widgets/custom_sliver.dart';
 import '../../../shared/widgets/play_app_bar.dart';
+import '../infra/models/playlist_model.dart';
 
-class AlbumPage extends StatefulWidget {
-  static const routeName = '/album';
+class PlaylistPage extends StatefulWidget {
+  static const routeName = '/playlist';
 
-  final AlbumModel album;
-  const AlbumPage({super.key, required this.album});
+  final PlaylistModel playlist;
+  const PlaylistPage({super.key, required this.playlist});
 
   @override
-  State<AlbumPage> createState() => _AlbumPageState();
+  State<PlaylistPage> createState() => _PlaylistPageState();
 }
 
-class _AlbumPageState extends State<AlbumPage> {
+class _PlaylistPageState extends State<PlaylistPage> {
   ScrollController scrollController = ScrollController();
   double imageSize = 0;
   double initialSize = 240;
@@ -48,21 +48,19 @@ class _AlbumPageState extends State<AlbumPage> {
       } else {
         showTopBar = false;
       }
-
-      setState(() {});
     });
     _updatePaletteGenerator(
-      CachedNetworkImageProvider(widget.album.albumArtUrl),
+      CachedNetworkImageProvider(widget.playlist.imageUrl),
     );
-
     super.initState();
   }
 
   Future<void> _updatePaletteGenerator(ImageProvider image) async {
     paletteGenerator = await PaletteGenerator.fromImageProvider(
       image,
-      maximumColorCount: 3,
+      maximumColorCount: 5,
     );
+    setState(() {});
   }
 
   Color get palletColor {
@@ -92,7 +90,7 @@ class _AlbumPageState extends State<AlbumPage> {
               palletColor: palletColor,
               imageOpacity: imageOpacity,
               imageSize: imageSize,
-              imageUrl: widget.album.albumArtUrl,
+              imageUrl: widget.playlist.imageUrl,
             ),
             SingleChildScrollView(
               controller: scrollController,
@@ -119,7 +117,7 @@ class _AlbumPageState extends State<AlbumPage> {
                         children: [
                           SizedBox(height: initialSize + 70),
                           MyText(
-                            widget.album.title,
+                            widget.playlist.name,
                             size: 25,
                             fontWeight: FontWeight.w600,
                             margin: const EdgeInsets.only(bottom: 18),
@@ -144,12 +142,12 @@ class _AlbumPageState extends State<AlbumPage> {
                               ],
                             ),
                           ),
-                          MyText(
-                            widget.album.songs.length > 1 ? 'Album' : 'Single',
+                          const MyText(
+                            'Playlist',
                             size: 16,
                             fontWeight: FontWeight.w500,
                             color: CustomColors.grey3,
-                            margin: const EdgeInsets.only(bottom: 18),
+                            margin: EdgeInsets.only(bottom: 18),
                           ),
                           Row(
                             children: const [
@@ -190,7 +188,7 @@ class _AlbumPageState extends State<AlbumPage> {
               showTopBar: showTopBar,
               palletColor: palletColor,
               containerHeight: containerHeight,
-              title: widget.album.title,
+              title: widget.playlist.name,
             )
           ],
         ),
