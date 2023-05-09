@@ -2,9 +2,9 @@
 
 A study project. Shows how to implement a music application in flutter. We will use clean architecture, Bloc, Unit Tests, etc.
 
-![Screenshot_1683646231](https://github.com/Maltinhoo/music-app-clean-architecture/assets/64161824/cd679c2e-7306-4388-afb0-feccbe5d7656)
-![Screenshot_1683646192](https://github.com/Maltinhoo/music-app-clean-architecture/assets/64161824/14f8b285-2e16-4727-98f6-712703940f24)
-![Screenshot_1683646200](https://github.com/Maltinhoo/music-app-clean-architecture/assets/64161824/a5a40d1f-c484-4922-bdab-0821304ae262)
+![alt text](https://github.com/Maltinhoo/music-app-clean-architecture/assets/64161824/cd679c2e-7306-4388-afb0-feccbe5d7656)
+![alt text](https://github.com/Maltinhoo/music-app-clean-architecture/assets/64161824/14f8b285-2e16-4727-98f6-712703940f24)
+![alt text](https://github.com/Maltinhoo/music-app-clean-architecture/assets/64161824/a5a40d1f-c484-4922-bdab-0821304ae262)
 
 
 ## Supported State Management Solutions
