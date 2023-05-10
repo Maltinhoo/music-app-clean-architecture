@@ -1,5 +1,5 @@
 import 'package:dartz/dartz.dart';
-import 'package:music_app/modules/playlist/domain/usecases/playlist_repository.dart';
+import 'package:music_app/modules/playlist/domain/repositories/playlist_repository.dart';
 
 import '../entities/playlist_entity.dart';
 

@@ -11,12 +11,14 @@ class MusicModel extends MusicEntity {
   });
 
   static MusicModel fromJson(Map<String, dynamic> json) {
-    print((json['artists'] as List<dynamic>).map((e) => e['name']).toList());
     return MusicModel(
       id: json['id'],
       title: json['name'],
       albumId: json['album']['id'],
-      imageUrl: json['album']['images'][0]['url'],
+      imageUrl:
+          json['album']['images'] != null && json['album']['images'].length > 0
+              ? json['album']['images'][0]['url']
+              : '',
       previewUrl: json['preview_url'] ?? '',
       artists: (json['artists'] as List<dynamic>)
           .map((e) => e['name'].toString())

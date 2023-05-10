@@ -8,6 +8,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../authorization/external/spotify_api.dart';
 import '../../../../authorization/infra/models/authorization_model.dart';
+import '../../../../music/infra/models/music_model.dart';
 
 class GetFeaturedPlaylistsHttpDataSourceImp implements PlaylistDataSource {
   @override
@@ -73,6 +74,32 @@ class GetFeaturedPlaylistsHttpDataSourceImp implements PlaylistDataSource {
       }
     } catch (e) {
       return Left(Exception('Error getting all artists'));
+    }
+  }
+
+  @override
+  Future<List<MusicModel>> getPlaylistItems(String playlistId) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String accessToken = prefs.getString('access_token') ?? '';
+    String tokenType = prefs.getString('token_type') ?? '';
+    String authorizationWithToken = '$tokenType $accessToken';
+    var link =
+        Uri.parse('https://api.spotify.com/v1/playlists/$playlistId/tracks');
+    try {
+      var response = await http.get(link, headers: {
+        'Authorization': authorizationWithToken,
+      });
+
+      if (response.statusCode == 200) {
+        var result = (json.decode(response.body)['items'] as List)
+            .map((e) => MusicModel.fromJson(e['track']))
+            .toList();
+        return result;
+      } else {
+        throw Exception('Failed to get Artists');
+      }
+    } catch (e) {
+      throw Exception('Failed to get Artists');
     }
   }
 }

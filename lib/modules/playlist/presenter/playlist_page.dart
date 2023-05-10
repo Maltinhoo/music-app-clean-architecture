@@ -1,13 +1,18 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:music_app/core/inject/intect.dart';
 import 'package:music_app/shared/widgets/custom_text.dart';
 import 'package:music_app/shared/widgets/vectors.dart';
 import 'package:palette_generator/palette_generator.dart';
 
 import '../../../shared/utils/custom_colors.dart';
 import '../../../shared/widgets/custom_sliver.dart';
+import '../../../shared/widgets/music_tack.dart';
 import '../../../shared/widgets/play_app_bar.dart';
+import '../../music/infra/models/music_model.dart';
 import '../infra/models/playlist_model.dart';
+import 'cubit/playlist_cubit.dart';
 
 class PlaylistPage extends StatefulWidget {
   static const routeName = '/playlist';
@@ -48,6 +53,7 @@ class _PlaylistPageState extends State<PlaylistPage> {
       } else {
         showTopBar = false;
       }
+      setState(() {});
     });
     _updatePaletteGenerator(
       CachedNetworkImageProvider(widget.playlist.imageUrl),
@@ -82,115 +88,130 @@ class _PlaylistPageState extends State<PlaylistPage> {
     double width = MediaQuery.of(context).size.width;
 
     return SafeArea(
-      child: Scaffold(
-        body: Stack(
-          children: [
-            CustomSliverAppBar(
-              containerHeight: containerHeight,
-              palletColor: palletColor,
-              imageOpacity: imageOpacity,
-              imageSize: imageSize,
-              imageUrl: widget.playlist.imageUrl,
-            ),
-            SingleChildScrollView(
-              controller: scrollController,
-              physics: const BouncingScrollPhysics(),
-              child: Column(
+      child: BlocProvider(
+        create: (context) =>
+            getIt<PlaylistCubit>()..initializePlaylist(widget.playlist.id),
+        child: BlocBuilder<PlaylistCubit, PlaylistState>(
+          builder: (context, state) {
+            if (state is PlaylistLoading) {
+              return const Center(child: CircularProgressIndicator());
+            }
+            return Scaffold(
+              body: Stack(
                 children: [
-                  Container(
-                    width: width,
-                    height: 500,
-                    decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                      colors: [
-                        Colors.black.withOpacity(0),
-                        Colors.black.withOpacity(0),
-                        Colors.black.withOpacity(1),
-                      ],
-                    )),
-                    child: Padding(
-                      padding: const EdgeInsets.only(top: 40, left: 20),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          SizedBox(height: initialSize + 70),
-                          MyText(
-                            widget.playlist.name,
-                            size: 25,
-                            fontWeight: FontWeight.w600,
-                            margin: const EdgeInsets.only(bottom: 18),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(bottom: 18),
-                            child: Row(
+                  CustomSliverAppBar(
+                    containerHeight: containerHeight,
+                    palletColor: palletColor,
+                    imageOpacity: imageOpacity,
+                    imageSize: imageSize,
+                    imageUrl: widget.playlist.imageUrl,
+                  ),
+                  SingleChildScrollView(
+                    controller: scrollController,
+                    physics: const BouncingScrollPhysics(),
+                    child: Column(
+                      children: [
+                        Container(
+                          width: width,
+                          height: 500,
+                          decoration: BoxDecoration(
+                              gradient: LinearGradient(
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter,
+                            colors: [
+                              Colors.black.withOpacity(0),
+                              Colors.black.withOpacity(0),
+                              Colors.black.withOpacity(1),
+                            ],
+                          )),
+                          child: Padding(
+                            padding: const EdgeInsets.only(top: 40, left: 20),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                ClipRRect(
-                                  borderRadius: BorderRadius.circular(100),
-                                  child: const Placeholder(
-                                    fallbackHeight: 25,
-                                    fallbackWidth: 25,
+                                SizedBox(height: initialSize + 70),
+                                MyText(
+                                  widget.playlist.name,
+                                  size: 25,
+                                  fontWeight: FontWeight.w600,
+                                  margin: const EdgeInsets.only(bottom: 18),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(bottom: 18),
+                                  child: Row(
+                                    children: [
+                                      ClipRRect(
+                                        borderRadius:
+                                            BorderRadius.circular(100),
+                                        child: const Placeholder(
+                                          fallbackHeight: 25,
+                                          fallbackWidth: 25,
+                                        ),
+                                      ),
+                                      const SizedBox(width: 10),
+                                      // MyText(
+                                      //   widget.album.artists[0],
+                                      //   size: 16,
+                                      //   fontWeight: FontWeight.w500,
+                                      // )
+                                    ],
                                   ),
                                 ),
-                                const SizedBox(width: 10),
-                                // MyText(
-                                //   widget.album.artists[0],
-                                //   size: 16,
-                                //   fontWeight: FontWeight.w500,
-                                // )
+                                const MyText(
+                                  'Playlist',
+                                  size: 16,
+                                  fontWeight: FontWeight.w500,
+                                  color: CustomColors.grey3,
+                                  margin: EdgeInsets.only(bottom: 18),
+                                ),
+                                Row(
+                                  children: const [
+                                    Icon(
+                                      Icons.favorite_border_outlined,
+                                      color: CustomColors.grey3,
+                                    ),
+                                    SizedBox(width: 30),
+                                    Vector(Vectors.download_icon),
+                                    SizedBox(width: 30),
+                                    Icon(
+                                      Icons.more_horiz,
+                                      color: CustomColors.grey3,
+                                    ),
+                                  ],
+                                )
                               ],
                             ),
                           ),
-                          const MyText(
-                            'Playlist',
-                            size: 16,
-                            fontWeight: FontWeight.w500,
-                            color: CustomColors.grey3,
-                            margin: EdgeInsets.only(bottom: 18),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(
+                            left: 20,
+                            right: 20,
+                            top: 20,
                           ),
-                          Row(
-                            children: const [
-                              Icon(
-                                Icons.favorite_border_outlined,
-                                color: CustomColors.grey3,
-                              ),
-                              SizedBox(width: 30),
-                              Vector(Vectors.download_icon),
-                              SizedBox(width: 30),
-                              Icon(
-                                Icons.more_horiz,
-                                color: CustomColors.grey3,
-                              ),
-                            ],
-                          )
-                        ],
-                      ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: List.generate(
+                                (state as PlaylistLoaded).musics.length,
+                                (index) => MusicTrack(
+                                      music:
+                                          (state).musics[index] as MusicModel,
+                                    )),
+                          ),
+                        )
+                      ],
                     ),
                   ),
-                  // TODO: add songs
-                  // SizedBox(
-                  //   width: width,
-                  //   child: Padding(
-                  //     padding:
-                  //         const EdgeInsets.only(top: 20, left: 20, right: 20),
-                  //     child: Column(
-                  //       crossAxisAlignment: CrossAxisAlignment.start,
-                  //       children:
-                  //           List.generate(20, (index) => const MusicTrack()),
-                  //     ),
-                  //   ),
-                  // )
+                  PlayAppBar(
+                    showTopBar: showTopBar,
+                    palletColor: palletColor,
+                    containerHeight: containerHeight,
+                    title: widget.playlist.name,
+                  )
                 ],
               ),
-            ),
-            PlayAppBar(
-              showTopBar: showTopBar,
-              palletColor: palletColor,
-              containerHeight: containerHeight,
-              title: widget.playlist.name,
-            )
-          ],
+            );
+          },
         ),
       ),
     );

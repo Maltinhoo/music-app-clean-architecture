@@ -9,6 +9,8 @@ import 'package:music_app/modules/authorization/domain/usecases/fetch_token/fetc
 import 'package:music_app/modules/authorization/domain/usecases/refresh_token/refresh_token.dart';
 import 'package:music_app/modules/authorization/presenter/cubit/authorization_cubit.dart';
 import 'package:music_app/modules/playlist/domain/usecases/get_featured_playlists_usecase.dart';
+import 'package:music_app/modules/playlist/domain/usecases/get_playlist_items_usecase.dart';
+import 'package:music_app/modules/playlist/presenter/cubit/playlist_cubit.dart';
 
 import '../../modules/album/domain/repositories/get_albums_by_artist_repository.dart';
 import '../../modules/album/domain/usecases/get_albums_by_artist/get_albums_by_artist_usecase.dart';
@@ -40,7 +42,7 @@ import '../../modules/music/domain/usecases/get_musics_by_artist_usecase_imp.dar
 import '../../modules/music/external/stub/get_musics_by_artist_local_datasource_imp.dart';
 import '../../modules/music/infra/datasources/get_musics_by_artists_datasource.dart';
 import '../../modules/music/infra/repositories/get_musics_by_artist_repository_imp.dart';
-import '../../modules/playlist/domain/usecases/playlist_repository.dart';
+import '../../modules/playlist/domain/repositories/playlist_repository.dart';
 import '../../modules/playlist/external/remote/http/get_featured_playlists_http_datasource_imp.dart';
 import '../../modules/playlist/infra/datasources/playlist_datasource.dart';
 import '../../modules/playlist/infra/repositories/playlist_repository_imp.dart';
@@ -100,6 +102,8 @@ class Inject {
         () => GetFeaturedPlaylistsUsecaseImp(getIt()));
     getIt.registerFactory<RefreshTokenUseCase>(
         () => RefreshTokenUseCaseImp(getIt()));
+    getIt.registerFactory<GetPlaylistItemsUseCase>(
+        () => GetPlaylistItemsUseCaseImp(getIt()));
 
     // init all blocs
     getIt.registerLazySingleton<HomeCubit>(
@@ -107,5 +111,6 @@ class Inject {
     getIt.registerLazySingleton<AuthorizationCubit>(
         () => AuthorizationCubit(getIt(), getIt()));
     getIt.registerFactory<ArtistCubit>(() => ArtistCubit(getIt(), getIt()));
+    getIt.registerFactory<PlaylistCubit>(() => PlaylistCubit(getIt()));
   }
 }

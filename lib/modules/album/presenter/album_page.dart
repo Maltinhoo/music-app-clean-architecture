@@ -171,18 +171,23 @@ class _AlbumPageState extends State<AlbumPage> {
                     ),
                   ),
                   // TODO: add songs
-                  // SizedBox(
-                  //   width: width,
-                  //   child: Padding(
-                  //     padding:
-                  //         const EdgeInsets.only(top: 20, left: 20, right: 20),
-                  //     child: Column(
-                  //       crossAxisAlignment: CrossAxisAlignment.start,
-                  //       children:
-                  //           List.generate(20, (index) => const MusicTrack()),
-                  //     ),
-                  //   ),
-                  // )
+                  SizedBox(
+                    width: width,
+                    child: Padding(
+                      padding:
+                          const EdgeInsets.only(top: 20, left: 20, right: 20),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: List.generate(
+                            20,
+                            (index) => Container(
+                                  height: 41,
+                                  width: 40,
+                                  color: Colors.red,
+                                )),
+                      ),
+                    ),
+                  )
                 ],
               ),
             ),
